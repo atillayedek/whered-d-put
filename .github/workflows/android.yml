@@ -26,6 +26,18 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      - name: Report backend configuration
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        # Prints only whether the values are present, never the values.
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            echo "::notice::Supabase configured: this build connects to the backend."
+          else
+            echo "::warning::Supabase secrets missing: this build shows the 'Not connected yet' screen."
+          fi
+
       - name: Unit tests, lint, debug APK and release AAB
         env:
           # Client-safe values only (project URL + anon/publishable key).
