@@ -5,8 +5,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.wheredidiputit.domain.ads.AdHistory
 import com.wheredidiputit.domain.model.ThemeMode
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -69,8 +72,26 @@ class UserPreferences @Inject constructor(
     /** Forgets everything tied to the account; appearance and onboarding stay. */
     suspend fun clearAccountData() {
         store.edit { prefs ->
-            val keep = setOf(ONBOARDING_DONE.name, THEME.name)
+            // Ad frequency is per device, so signing out can't be used to see more ads.
+            val keep = setOf(ONBOARDING_DONE.name, THEME.name, AD_LAST_SHOWN.name, AD_DAY.name, AD_COUNT.name)
             prefs.asMap().keys.filter { it.name !in keep }.forEach { prefs -= it }
+        }
+    }
+
+    suspend fun adHistory(): AdHistory {
+        val prefs = store.data.first()
+        return AdHistory(
+            lastShownAt = prefs[AD_LAST_SHOWN],
+            day = prefs[AD_DAY],
+            shownToday = prefs[AD_COUNT] ?: 0,
+        )
+    }
+
+    suspend fun setAdHistory(history: AdHistory) {
+        store.edit { prefs ->
+            history.lastShownAt?.let { prefs[AD_LAST_SHOWN] = it }
+            history.day?.let { prefs[AD_DAY] = it }
+            prefs[AD_COUNT] = history.shownToday
         }
     }
 
@@ -82,5 +103,8 @@ class UserPreferences @Inject constructor(
         val USER_ID = stringPreferencesKey("cached_user_id")
         val USER_EMAIL = stringPreferencesKey("cached_user_email")
         val RECOVERY_PENDING = booleanPreferencesKey("password_recovery_pending")
+        val AD_LAST_SHOWN = longPreferencesKey("ad_last_shown_at")
+        val AD_DAY = stringPreferencesKey("ad_day")
+        val AD_COUNT = intPreferencesKey("ad_shown_today")
     }
 }

@@ -34,6 +34,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wheredidiputit.R
+import com.wheredidiputit.presentation.common.LocalAdsController
 import com.wheredidiputit.presentation.common.LocalSnackbarHostState
 import com.wheredidiputit.presentation.detail.DetailScreen
 import com.wheredidiputit.presentation.favorites.FavoritesScreen
@@ -64,6 +65,7 @@ fun MainNavHost() {
         destination?.hierarchy?.any(tab.matches) == true
     }
     val snackbarHostState = LocalSnackbarHostState.current
+    val ads = LocalAdsController.current
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
@@ -123,12 +125,16 @@ fun MainNavHost() {
                     onSaved = { isNew ->
                         navController.popBackStack()
                         announce(if (isNew) R.string.remember_saved else R.string.remember_updated)
+                        ads.onNaturalBreak()
                     },
                 )
             }
             composable<DetailRoute> {
                 DetailScreen(
-                    onBack = { navController.popBackStack() },
+                    onBack = {
+                        navController.popBackStack()
+                        ads.onNaturalBreak()
+                    },
                     onEdit = { id -> navController.navigate(RememberRoute(id)) },
                     onDeleted = {
                         navController.popBackStack()

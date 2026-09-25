@@ -18,6 +18,7 @@ import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -51,6 +52,7 @@ import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.domain.model.AppError
 import com.wheredidiputit.domain.model.ThemeMode
 import com.wheredidiputit.presentation.common.AppSnackbarHost
+import com.wheredidiputit.presentation.common.LocalAdsController
 import com.wheredidiputit.presentation.common.LocalSnackbarHostState
 import com.wheredidiputit.presentation.common.SectionLabel
 import com.wheredidiputit.presentation.common.TopLevelScreenInsets
@@ -63,6 +65,8 @@ fun SettingsScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = LocalSnackbarHostState.current
     val context = LocalContext.current
+    val ads = LocalAdsController.current
+    val adPrivacyRequired by ads.privacyOptionsRequired.collectAsStateWithLifecycle()
 
     LaunchedEffect(viewModel) {
         viewModel.errors.collect { error ->
@@ -115,6 +119,16 @@ fun SettingsScreen(
                     onClick = onOpenPrivacy,
                     showChevron = true,
                 )
+                if (adPrivacyRequired) {
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                    SettingsRow(
+                        icon = Icons.Outlined.Tune,
+                        title = stringResource(R.string.settings_ad_privacy),
+                        subtitle = stringResource(R.string.settings_ad_privacy_subtitle),
+                        onClick = ads::openPrivacyOptions,
+                        showChevron = true,
+                    )
+                }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 SettingsRow(
                     icon = Icons.AutoMirrored.Outlined.Logout,

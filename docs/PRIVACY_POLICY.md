@@ -23,9 +23,23 @@ as GPS coordinates, camera model and capture time is removed.
 When you use **Speak**, audio is processed by your phone's speech recognition
 service. The app receives only the recognised text and does not store audio.
 
-We do **not** collect location, contacts, device identifiers, advertising IDs
-or analytics. We do not show ads. We do not sell or share your data with
-third parties. Our infrastructure provider (Supabase) processes the data
+We do not collect contacts or analytics, and we never sell your memories or
+share them with advertisers.
+
+## Ads
+
+The app is free and supported by ads from **Google AdMob**. At most three
+full-screen ads are shown per day, only at natural pauses. To serve and
+measure ads, the AdMob SDK may collect your device's advertising ID, approximate
+location derived from your IP address, and information about ad interactions.
+See [how Google uses information from apps that use its services](https://policies.google.com/technologies/partner-sites).
+
+Where the law requires it (for example in the EEA and the UK), you are asked for
+consent before ads are personalised, and you can change your choice at any time
+in **Settings → Ad privacy choices**. You can also reset or delete your
+advertising ID in your device's Google settings.
+
+Our infrastructure provider (Supabase) processes the account and memory data
 above solely to operate the service.
 
 ## Security

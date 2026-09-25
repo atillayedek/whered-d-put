@@ -29,6 +29,15 @@ fun config(name: String, source: Properties = localProperties): String =
 val supabaseUrl = config("SUPABASE_URL")
 val supabaseAnonKey = config("SUPABASE_ANON_KEY")
 
+// AdMob. Release builds show ads only when real IDs are provided. Debug builds
+// always use Google's official test IDs so real ads are never served or
+// clicked during development (which AdMob treats as invalid traffic).
+val admobAppId = config("ADMOB_APP_ID")
+val admobInterstitialId = config("ADMOB_INTERSTITIAL_ID")
+val releaseAdsConfigured = admobAppId.isNotEmpty() && admobInterstitialId.isNotEmpty()
+val googleTestAppId = "ca-app-pub-3940256099942544~3347511713"
+val googleTestInterstitialId = "ca-app-pub-3940256099942544/1033173712"
+
 val releaseStoreFile = config("WDIPI_KEYSTORE_FILE", keystoreProperties)
 val hasReleaseSigning = releaseStoreFile.isNotEmpty() && rootProject.file(releaseStoreFile).exists()
 
@@ -59,7 +68,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders["admobAppId"] = googleTestAppId
+            buildConfigField("boolean", "ADS_ENABLED", "true")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"$googleTestInterstitialId\"")
+        }
         release {
+            // Without real IDs the SDK is never initialised and no ad is requested.
+            manifestPlaceholders["admobAppId"] = if (releaseAdsConfigured) admobAppId else googleTestAppId
+            buildConfigField("boolean", "ADS_ENABLED", releaseAdsConfigured.toString())
+            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"$admobInterstitialId\"")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -140,6 +158,9 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
 
     implementation(platform(libs.supabase.bom))
     implementation(libs.supabase.auth)

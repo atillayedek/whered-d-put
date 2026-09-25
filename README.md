@@ -43,6 +43,7 @@ it.
 | Favorites | Bottom-nav tab with the hearted memories. |
 | Categories | Built-in taxonomy (Documents, Keys, Electronics, Clothes, Tools, Other) + custom categories created inline. |
 | Settings | Email, theme (System/Light/Dark), Privacy, Sign out (warns about unsynced memories), Delete account, app version. |
+| Ads | Google AdMob interstitials at natural pauses only (after saving, after leaving a memory). At most 3 per day, 2 hours apart, none in the first 24 hours after install, never during search or typing. Google UMP consent form where required, "Ad privacy choices" in Settings. |
 | Sync | States `SYNCED`, `PENDING_CREATE`, `PENDING_UPDATE`, `PENDING_DELETE`, `FAILED`. Soft delete via `deleted_at`. Local edits win over older server rows. |
 
 ## Architecture
@@ -120,12 +121,28 @@ put the service-role key, database password or any admin token in
 ./gradlew bundleRelease          # release AAB (R8 minified, resources shrunk)
 ```
 
+### Ads (AdMob)
+
+Create an app and an **Interstitial** ad unit in [AdMob](https://admob.google.com),
+then set:
+
+```properties
+ADMOB_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY
+ADMOB_INTERSTITIAL_ID=ca-app-pub-XXXXXXXXXXXXXXXX/ZZZZZZZZZZ
+```
+
+Debug builds always use Google's official test ad IDs, so you never see or
+click real ads while developing. Release builds show ads only when both real
+IDs are set; otherwise no ad is ever requested. In AdMob, also publish a
+GDPR/UK consent message (*Privacy & messaging*) so the consent form appears.
+
 Without credentials the app still builds and runs, but shows a clear
 "Not connected yet" screen instead of pretending to work.
 
 CI (`.github/workflows/android.yml`) runs unit tests, lint, the debug APK and
 the release AAB on every push. Add `SUPABASE_URL` and `SUPABASE_ANON_KEY` as
-repository secrets to produce a connected build.
+repository secrets to produce a connected build, and `ADMOB_APP_ID` /
+`ADMOB_INTERSTITIAL_ID` for a release build with ads.
 
 ## Release & Google Play
 
@@ -149,6 +166,8 @@ repository secrets to produce a connected build.
 - **Privacy policy:** publish [`docs/PRIVACY_POLICY.md`](docs/PRIVACY_POLICY.md)
   at a public URL after adding your legal entity and contact address, and link
   it in the Play Console.
+- **Ads:** declare *Contains ads* in Play Console, and host an `app-ads.txt`
+  file on your developer website as AdMob asks.
 - **Data safety form:** see [`docs/DATA_SAFETY.md`](docs/DATA_SAFETY.md).
 - **Account deletion:** in-app (Settings → Delete account). Google Play also
   requires a web link where users can request deletion; point it to a page or
@@ -160,6 +179,8 @@ repository secrets to produce a connected build.
   index use.
 - Storage paths are validated both by bucket policies and by a check
   constraint on `items.image_url`.
+- Memories and photos are never passed to the ad SDK; ads only ever see what
+  the AdMob SDK itself collects.
 - The Supabase client logs nothing (`LogLevel.NONE`); the app contains no
   `Log` calls with personal data; release builds strip `Log.v/d/i`.
 - Auth deep links use PKCE, so an intercepted link is useless without the

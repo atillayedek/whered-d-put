@@ -30,12 +30,19 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
+          ADMOB_INTERSTITIAL_ID: ${{ secrets.ADMOB_INTERSTITIAL_ID }}
         # Prints only whether the values are present, never the values.
         run: |
           if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
             echo "::notice::Supabase configured: this build connects to the backend."
           else
             echo "::warning::Supabase secrets missing: this build shows the 'Not connected yet' screen."
+          fi
+          if [ -n "$ADMOB_APP_ID" ] && [ -n "$ADMOB_INTERSTITIAL_ID" ]; then
+            echo "::notice::AdMob configured: the release build shows ads."
+          else
+            echo "::warning::AdMob secrets missing: the release build shows no ads (debug uses Google test ads)."
           fi
 
       - name: Unit tests, lint, debug APK and release AAB
@@ -45,6 +52,8 @@ jobs:
           # its "not connected" state instead of pretending to work.
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
+          ADMOB_INTERSTITIAL_ID: ${{ secrets.ADMOB_INTERSTITIAL_ID }}
         run: ./gradlew --no-daemon --stacktrace testDebugUnitTest lintRelease assembleDebug bundleRelease
 
       - name: Upload build outputs

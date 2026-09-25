@@ -1,5 +1,6 @@
 package com.wheredidiputit.presentation.detail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -75,6 +76,8 @@ fun DetailScreen(
     LaunchedEffect(viewModel) {
         viewModel.deleted.collect { onDeleted() }
     }
+    // System back behaves exactly like the toolbar back arrow.
+    BackHandler(onBack = onBack)
 
     val item = (state as? DetailUiState.Loaded)?.item
 

@@ -54,6 +54,14 @@
             </intent-filter>
         </activity>
 
+        <!-- AdMob app ID comes from the build (see app/build.gradle.kts). -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${admobAppId}" />
+        <meta-data
+            android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
+            android:value="true" />
+
         <!-- WorkManager is initialised on demand with the Hilt worker factory. -->
         <provider
             android:name="androidx.startup.InitializationProvider"

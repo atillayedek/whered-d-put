@@ -170,6 +170,8 @@
     <string name="settings_privacy_section">Privacy and account</string>
     <string name="settings_privacy">Privacy</string>
     <string name="settings_privacy_subtitle">How your memories are stored and protected</string>
+    <string name="settings_ad_privacy">Ad privacy choices</string>
+    <string name="settings_ad_privacy_subtitle">Change how ads use your data</string>
     <string name="settings_sign_out">Sign out</string>
     <string name="settings_delete_account">Delete account</string>
     <string name="settings_version">Version %1$s</string>
@@ -192,11 +194,13 @@
     <string name="privacy_where_title">Where it\'s stored</string>
     <string name="privacy_where_body">On this phone, so the app works offline, and in your private account in our cloud database, so nothing is lost if you change phones. Data is encrypted in transit.</string>
     <string name="privacy_who_title">Who can see it</string>
-    <string name="privacy_who_body">Only you. Access rules in the database only allow your account to read or change your memories. We don\'t sell your data, show ads or use analytics.</string>
+    <string name="privacy_who_body">Only you. Access rules in the database only allow your account to read or change your memories. We don\'t sell your memories and don\'t use analytics. Your memories are never shared with advertisers.</string>
     <string name="privacy_photos_title">Photos</string>
     <string name="privacy_photos_body">Photos you choose are resized, and their hidden metadata, such as GPS location and camera details, is removed before anything is saved or uploaded.</string>
     <string name="privacy_mic_title">Microphone</string>
     <string name="privacy_mic_body">The microphone is used only while you tap Speak, through your phone\'s speech recognition service. Recordings are not stored by this app.</string>
+    <string name="privacy_ads_title">Ads</string>
+    <string name="privacy_ads_body">The app is free and shows at most three full-screen ads a day, only after you finish something, never while you search or type. Ads are provided by Google AdMob, which may use your device\'s advertising ID and approximate location to choose ads. Where the law requires it, you\'re asked for consent first and can change your choice in Settings › Ad privacy choices. Your memories and photos are never shared with Google for ads.</string>
     <string name="privacy_delete_title">Deleting your data</string>
     <string name="privacy_delete_body">Delete a memory at any time. Settings › Delete account permanently removes your account, every memory and every photo.</string>
 

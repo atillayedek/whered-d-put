@@ -25,6 +25,7 @@ private val sections = listOf(
     R.string.privacy_who_title to R.string.privacy_who_body,
     R.string.privacy_photos_title to R.string.privacy_photos_body,
     R.string.privacy_mic_title to R.string.privacy_mic_body,
+    R.string.privacy_ads_title to R.string.privacy_ads_body,
     R.string.privacy_delete_title to R.string.privacy_delete_body,
 )
 
