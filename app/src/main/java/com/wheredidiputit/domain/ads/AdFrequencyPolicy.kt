@@ -1,7 +1,6 @@
 package com.wheredidiputit.domain.ads
 
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 
 /** What has been shown so far on this device. */
@@ -38,6 +37,7 @@ object AdFrequencyPolicy {
         return AdHistory(lastShownAt = now, day = today, shownToday = shownToday + 1)
     }
 
+    // atZone().toLocalDate() works from API 26; LocalDate.ofInstant needs API 34.
     private fun dayOf(millis: Long, zone: ZoneId): String =
-        LocalDate.ofInstant(Instant.ofEpochMilli(millis), zone).toString()
+        Instant.ofEpochMilli(millis).atZone(zone).toLocalDate().toString()
 }
