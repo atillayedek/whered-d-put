@@ -140,7 +140,9 @@ Without credentials the app still builds and runs, but shows a clear
 "Not connected yet" screen instead of pretending to work.
 
 CI (`.github/workflows/android.yml`) runs unit tests, lint, the debug APK and
-the release AAB on every push. Add `SUPABASE_URL` and `SUPABASE_ANON_KEY` as
+the release AAB on every push, then starts the debug APK on an Android 14
+emulator, walks the signed-out screens in light and dark mode, fails on any
+crash and keeps the screenshots as the `smoke-test-screenshots` artifact. Add `SUPABASE_URL` and `SUPABASE_ANON_KEY` as
 repository secrets to produce a connected build, and `ADMOB_APP_ID` /
 `ADMOB_INTERSTITIAL_ID` for a release build with ads.
 
@@ -161,6 +163,11 @@ repository secrets to produce a connected build, and `ADMOB_APP_ID` /
 
   `bundleRelease` signs automatically when these are present; otherwise it
   produces an unsigned AAB. Use Play App Signing.
+
+  For CI, add the keystore as repository secrets: `WDIPI_KEYSTORE_BASE64`
+  (output of `base64 -w0 upload-keystore.jks`), `WDIPI_KEYSTORE_PASSWORD`,
+  `WDIPI_KEY_ALIAS`, `WDIPI_KEY_PASSWORD`. The keystore is decoded into the
+  runner's temp folder only for the build and deleted afterwards.
 - Adaptive + themed (monochrome) launcher icon, splash screen, backups
   disabled, cleartext traffic disabled.
 - **Privacy policy:** publish [`docs/PRIVACY_POLICY.md`](docs/PRIVACY_POLICY.md)
@@ -168,6 +175,7 @@ repository secrets to produce a connected build, and `ADMOB_APP_ID` /
   it in the Play Console.
 - **Ads:** declare *Contains ads* in Play Console, and host an `app-ads.txt`
   file on your developer website as AdMob asks.
+- **Store listing texts (EN/TR):** see [`docs/STORE_LISTING.md`](docs/STORE_LISTING.md).
 - **Data safety form:** see [`docs/DATA_SAFETY.md`](docs/DATA_SAFETY.md).
 - **Account deletion:** in-app (Settings → Delete account). Google Play also
   requires a web link where users can request deletion; point it to a page or
