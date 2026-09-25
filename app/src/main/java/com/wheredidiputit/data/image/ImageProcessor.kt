@@ -100,9 +100,9 @@ class ImageProcessor @Inject constructor(
         resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
         if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null
 
-        var sample = 1
-        while (max(bounds.outWidth, bounds.outHeight) / (sample * 2) >= MAX_EDGE_PX) sample *= 2
-        val options = BitmapFactory.Options().apply { inSampleSize = sample }
+        var sampleSize = 1
+        while (max(bounds.outWidth, bounds.outHeight) / (sampleSize * 2) >= MAX_EDGE_PX) sampleSize *= 2
+        val options = BitmapFactory.Options().apply { inSampleSize = sampleSize }
         val decoded = resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, options) }
             ?: return null
 
