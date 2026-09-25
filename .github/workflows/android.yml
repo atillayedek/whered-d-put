@@ -118,6 +118,18 @@ jobs:
           disable-animations: true
           script: bash .github/scripts/smoke-test.sh
 
+      - name: Contact sheet
+        if: always()
+        # One small overview image of all screens. Also printed (base64, between
+        # markers) so reviewers without artifact access can inspect the UI.
+        run: |
+          ls smoke-test/*.png > /dev/null 2>&1 || exit 0
+          montage smoke-test/*.png -tile 4x -geometry 300x+6+6 -background '#888888' -quality 70 smoke-test/contact-sheet.jpg
+          echo "CONTACT-SHEET-BEGIN"
+          base64 -w0 smoke-test/contact-sheet.jpg
+          echo
+          echo "CONTACT-SHEET-END"
+
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v5
@@ -126,4 +138,5 @@ jobs:
           if-no-files-found: ignore
           path: |
             smoke-test/*.png
+            smoke-test/contact-sheet.jpg
             smoke-test/logcat.txt
