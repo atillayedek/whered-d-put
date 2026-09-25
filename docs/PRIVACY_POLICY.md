@@ -1,0 +1,49 @@
+# Privacy Policy — Where Did I Put It?
+
+*Before publishing: add the name of the legal entity operating the app, a
+contact email address, and the effective date. Google Play requires all three.*
+
+## What the app does
+
+Where Did I Put It? helps you remember where you put things. You save a short
+note about an item and its location, optionally with a category, a note and a
+photo, and search for it later.
+
+## Data we collect
+
+| Data | Why | Stored |
+| --- | --- | --- |
+| Email address | To create and sign in to your account, send confirmation and password-reset emails | Supabase Auth |
+| Memories: item name, location, optional note and category, favourite flag, timestamps | The core function of the app | On your device and in your account's database rows |
+| Photos you choose | To show what the item looks like | On your device and in a private per-account storage folder |
+
+Photos are resized and re-encoded before they are stored. Hidden metadata such
+as GPS coordinates, camera model and capture time is removed.
+
+When you use **Speak**, audio is processed by your phone's speech recognition
+service. The app receives only the recognised text and does not store audio.
+
+We do **not** collect location, contacts, device identifiers, advertising IDs
+or analytics. We do not show ads. We do not sell or share your data with
+third parties. Our infrastructure provider (Supabase) processes the data
+above solely to operate the service.
+
+## Security
+
+Data is encrypted in transit (HTTPS). Database access rules (Row Level
+Security) allow only your account to read or change your memories and photos.
+
+## Keeping and deleting data
+
+Your data is kept while your account exists. You can delete any memory at any
+time. **Settings → Delete account** permanently deletes your account, every
+memory and every photo from our servers and from the device. Signing out
+removes all memories and photos from the device.
+
+## Children
+
+The app is not directed at children under 13.
+
+## Changes
+
+We will update this page if our practices change.

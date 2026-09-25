@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Where Did I Put It?</string>
+    <string name="app_name_display">Where did I put it?</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Back</string>
+    <string name="action_close">Close</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_try_again">Try again</string>
+    <string name="time_just_now">just now</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_tagline">Save it now. Find it later.</string>
+    <string name="onboarding_write_title">Write it down</string>
+    <string name="onboarding_write_body">Type what you put away and where it is. It takes a few seconds.</string>
+    <string name="onboarding_speak_title">Or just say it</string>
+    <string name="onboarding_speak_body">“I put my passport in the second drawer of my desk.”</string>
+    <string name="onboarding_photo_title">Add a photo</string>
+    <string name="onboarding_photo_body">A picture helps when words aren\'t enough.</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="setup_required_title">Not connected yet</string>
+    <string name="setup_required_message">This build isn\'t connected to its cloud service, so accounts and sync aren\'t available. If you\'re the developer, add the Supabase URL and anon key described in the README and rebuild.</string>
+
+    <!-- Auth -->
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_new_password">New password</string>
+    <string name="auth_show_password">Show password</string>
+    <string name="auth_hide_password">Hide password</string>
+    <string name="auth_email_invalid">Enter a valid email address.</string>
+    <string name="auth_password_rule">Use at least %1$d characters.</string>
+    <string name="auth_password_too_short">Your password needs at least %1$d characters.</string>
+    <string name="sign_in_title">Welcome back</string>
+    <string name="sign_in_subtitle">Sign in to find what you saved.</string>
+    <string name="sign_in_action">Sign in</string>
+    <string name="sign_in_forgot">Forgot password?</string>
+    <string name="sign_in_new_here">New here?</string>
+    <string name="sign_in_create_account">Create an account</string>
+    <string name="sign_in_resend_confirmation">Send the confirmation email again</string>
+    <string name="sign_up_title">Create your account</string>
+    <string name="sign_up_subtitle">Your memories stay private to you.</string>
+    <string name="sign_up_action">Create account</string>
+    <string name="sign_up_have_account">I already have an account</string>
+    <string name="verify_title">Check your inbox</string>
+    <string name="verify_subtitle">We sent a link to %1$s. Open it on this phone to finish setting up.</string>
+    <string name="verify_other_device">Opened it somewhere else? That\'s fine. Your email is still confirmed. Come back and sign in.</string>
+    <string name="verify_continue">I\'ve confirmed my email</string>
+    <string name="verify_resend">Send the email again</string>
+    <string name="verify_resend_in">Send again in %1$ds</string>
+    <string name="verify_resent">We sent a new link.</string>
+    <string name="forgot_title">Reset your password</string>
+    <string name="forgot_subtitle">Enter your email and we\'ll send you a link to choose a new password.</string>
+    <string name="forgot_action">Send reset link</string>
+    <string name="forgot_sent">If there\'s an account for %1$s, a reset link is on its way. Open it on this phone.</string>
+    <string name="forgot_back_to_sign_in">Back to sign in</string>
+    <string name="reset_title">Choose a new password</string>
+    <string name="reset_subtitle">You\'ll use it the next time you sign in.</string>
+    <string name="reset_action">Save password</string>
+    <string name="message_email_confirmed">Your email is confirmed. Welcome!</string>
+    <string name="message_link_expired">That link has expired or was opened on a different device. Please sign in or request a new link.</string>
+    <string name="message_password_updated">Your password has been updated.</string>
+
+    <!-- Errors (plain language, never technical) -->
+    <string name="error_network">You seem to be offline. Check your connection and try again.</string>
+    <string name="error_invalid_credentials">That email and password don\'t match.</string>
+    <string name="error_email_not_confirmed">Please confirm your email first. Check your inbox for our link.</string>
+    <string name="error_email_in_use">There\'s already an account with this email. Try signing in.</string>
+    <string name="error_weak_password">That password is too easy to guess. Try a longer one.</string>
+    <string name="error_same_password">Choose a password that\'s different from your current one.</string>
+    <string name="error_rate_limited">Too many attempts. Please wait a moment and try again.</string>
+    <string name="error_session_expired">Please sign in again to continue.</string>
+    <string name="error_not_configured">This build isn\'t connected to its cloud service yet.</string>
+    <string name="error_not_found">We couldn\'t find that memory.</string>
+    <string name="error_storage">Something went wrong saving on this device. Please try again.</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+
+    <!-- Home -->
+    <string name="home_title">Where did I put it?</string>
+    <string name="home_search_hint">Search your memories…</string>
+    <string name="home_search_clear">Clear search</string>
+    <string name="home_remember_something">Remember something</string>
+    <string name="home_recent">Recent</string>
+    <string name="home_empty_title">Nothing here yet</string>
+    <string name="home_empty_message">Save where you put something and we\'ll help you find it later.</string>
+    <string name="home_no_results_title">Nothing matches “%1$s”</string>
+    <string name="home_no_results_message">Try a different word, or search for the place instead.</string>
+    <plurals name="home_results_count">
+        <item quantity="one">%1$d memory</item>
+        <item quantity="other">%1$d memories</item>
+    </plurals>
+
+    <!-- Sync -->
+    <string name="sync_failed_title">Couldn\'t sync</string>
+    <string name="sync_failed_message">Your memories are saved on this device. We\'ll try again when you\'re online.</string>
+    <string name="sync_item_pending">Saved on this device. It will sync when you\'re online.</string>
+    <string name="sync_item_failed">Couldn\'t sync. Your memory is saved on this device. We\'ll try again when you\'re online.</string>
+
+    <!-- Remember -->
+    <string name="remember_title">Remember something</string>
+    <string name="remember_edit_title">Edit memory</string>
+    <string name="remember_prompt">What do you want to remember?</string>
+    <string name="remember_speak">Speak</string>
+    <string name="remember_add_photo">Add photo</string>
+    <string name="remember_change_photo">Change photo</string>
+    <string name="remember_remove_photo">Remove photo</string>
+    <string name="remember_item_label">Item</string>
+    <string name="remember_item_hint">Passport</string>
+    <string name="remember_item_required">What is it? Add a short name.</string>
+    <string name="remember_location_label">Where is it?</string>
+    <string name="remember_location_hint">Second drawer of my desk</string>
+    <string name="remember_location_required">Where did you put it?</string>
+    <string name="remember_more_details">Category and note</string>
+    <string name="remember_fewer_details">Hide category and note</string>
+    <string name="remember_category_label">Category</string>
+    <string name="remember_note_label">Note</string>
+    <string name="remember_note_hint">Anything else worth remembering</string>
+    <string name="remember_save">Remember this</string>
+    <string name="remember_save_changes">Save changes</string>
+    <string name="remember_saved">Saved. You\'ll find it here whenever you need it.</string>
+    <string name="remember_updated">Changes saved.</string>
+    <string name="category_new">New category</string>
+    <string name="category_new_title">New category</string>
+    <string name="category_name_label">Name</string>
+    <string name="category_create">Create</string>
+    <string name="category_create_failed">Couldn\'t create that category. Try a shorter name.</string>
+    <string name="photo_unsupported">That photo couldn\'t be used. Try a different one.</string>
+    <string name="photo_too_large">That photo is too large. Try a different one.</string>
+    <string name="speech_listening">Listening…</string>
+    <string name="speech_listening_hint">Say what you put away and where.</string>
+    <string name="speech_done">Done</string>
+    <string name="speech_heard">Heard: “%1$s”</string>
+    <string name="speech_check">We filled in the fields below. Check that they look right.</string>
+    <string name="speech_no_match">Didn\'t catch that. Try again, or type it instead.</string>
+    <string name="speech_permission_denied">Microphone access is off. You can still type it.</string>
+    <string name="speech_unavailable">Voice input isn\'t available right now. You can type it instead.</string>
+
+    <!-- Detail -->
+    <string name="detail_note">Note</string>
+    <string name="detail_saved">Saved %1$s</string>
+    <string name="detail_updated">Edited %1$s</string>
+    <string name="detail_photo_pending">The photo will appear once you\'re online.</string>
+    <string name="detail_delete_title">Delete this memory?</string>
+    <string name="detail_delete_message">This will remove “%1$s” from your memories.</string>
+    <string name="detail_deleted">Memory deleted.</string>
+    <string name="detail_not_found_title">This memory is gone</string>
+    <string name="detail_not_found_message">It may have been deleted on another device.</string>
+
+    <!-- Favorites -->
+    <string name="favorites_title">Favorites</string>
+    <string name="favorites_empty_title">No favorites yet</string>
+    <string name="favorites_empty_message">Tap the heart on a memory to keep it close.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_account">Account</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_privacy_section">Privacy and account</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_privacy_subtitle">How your memories are stored and protected</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="settings_delete_account">Delete account</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="sign_out_title">Sign out?</string>
+    <string name="sign_out_message">Your memories stay safe in your account. Sign in again any time to see them.</string>
+    <plurals name="sign_out_unsynced_message">
+        <item quantity="one">%1$d memory hasn\'t synced yet. If you sign out now, it will be removed from this device and can\'t be recovered.</item>
+        <item quantity="other">%1$d memories haven\'t synced yet. If you sign out now, they will be removed from this device and can\'t be recovered.</item>
+    </plurals>
+    <string name="delete_account_title">Delete your account?</string>
+    <string name="delete_account_message">This permanently deletes your account, every memory and every photo, from this device and from the cloud. This can\'t be undone.</string>
+    <string name="delete_account_working">Deleting…</string>
+    <string name="delete_account_offline">You need to be online to delete your account. Nothing was deleted.</string>
+    <string name="delete_account_failed">Couldn\'t delete your account. Nothing was deleted. Please try again.</string>
+
+    <!-- Privacy -->
+    <string name="privacy_intro">Your memories are personal. Here is exactly what the app keeps and who can see it.</string>
+    <string name="privacy_what_title">What we store</string>
+    <string name="privacy_what_body">Your email address, and for each memory: the item, where it is, an optional note, category and photo, whether it\'s a favorite, and when it was saved or changed.</string>
+    <string name="privacy_where_title">Where it\'s stored</string>
+    <string name="privacy_where_body">On this phone, so the app works offline, and in your private account in our cloud database, so nothing is lost if you change phones. Data is encrypted in transit.</string>
+    <string name="privacy_who_title">Who can see it</string>
+    <string name="privacy_who_body">Only you. Access rules in the database only allow your account to read or change your memories. We don\'t sell your data, show ads or use analytics.</string>
+    <string name="privacy_photos_title">Photos</string>
+    <string name="privacy_photos_body">Photos you choose are resized, and their hidden metadata, such as GPS location and camera details, is removed before anything is saved or uploaded.</string>
+    <string name="privacy_mic_title">Microphone</string>
+    <string name="privacy_mic_body">The microphone is used only while you tap Speak, through your phone\'s speech recognition service. Recordings are not stored by this app.</string>
+    <string name="privacy_delete_title">Deleting your data</string>
+    <string name="privacy_delete_body">Delete a memory at any time. Settings › Delete account permanently removes your account, every memory and every photo.</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_memory_card">%1$s. Location: %2$s. %3$s</string>
+    <string name="a11y_add_favorite">Add to favorites</string>
+    <string name="a11y_remove_favorite">Remove from favorites</string>
+    <string name="a11y_item_photo">Photo of the item</string>
+    <string name="a11y_location">Location</string>
+</resources>

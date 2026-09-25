@@ -1,0 +1,64 @@
+package com.wheredidiputit
+
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wheredidiputit.core.designsystem.theme.WdipiTheme
+import com.wheredidiputit.domain.model.ThemeMode
+import com.wheredidiputit.presentation.app.MainViewModel
+import com.wheredidiputit.presentation.app.WdipiApp
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        splashScreen.setKeepOnScreenCondition { viewModel.uiState.value.isLoading }
+        if (savedInstanceState == null) handleAuthLink(intent)
+
+        setContent {
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            val dark = when (state.themeMode) {
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                ThemeMode.LIGHT -> false
+                ThemeMode.DARK -> true
+            }
+            LaunchedEffect(dark) {
+                val style = if (dark) {
+                    SystemBarStyle.dark(Color.TRANSPARENT)
+                } else {
+                    SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                }
+                enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+            }
+            WdipiTheme(themeMode = state.themeMode) {
+                WdipiApp(state = state, viewModel = viewModel)
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleAuthLink(intent)
+    }
+
+    private fun handleAuthLink(intent: Intent?) {
+        if (intent?.action != Intent.ACTION_VIEW) return
+        intent.data?.toString()?.let(viewModel::onAuthLink)
+    }
+}

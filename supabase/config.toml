@@ -1,0 +1,18 @@
+# Minimal Supabase CLI configuration for this project.
+# Link to your hosted project with: supabase link --project-ref <your-project-ref>
+project_id = "wheredidiputit"
+
+[auth]
+# Links in confirmation / reset emails redirect back into the Android app.
+site_url = "wheredidiputit://auth-callback"
+additional_redirect_urls = ["wheredidiputit://auth-callback", "wheredidiputit://auth-callback?type=recovery"]
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+double_confirm_changes = true
+
+[functions.delete-account]
+# The gateway rejects requests without a valid user JWT before the function runs.
+verify_jwt = true
