@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Where Did I Put It?</title>
+<style>
+  :root {
+    --paper: #F6F4EF; --surface: #FEFDFA; --ink: #1E1F1C; --muted: #5B5E57; --line: #DAD7CE;
+    --sage: #4E6B53; --sage-ink: #FBFCF8; --sage-soft: #D5E4D2; --sage-deep: #122917; --error: #B0443A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --paper: #1B1D1B; --surface: #222522; --ink: #E6E3DC; --muted: #B7B6AE; --line: #41443F;
+      --sage: #A8C5A8; --sage-ink: #15311D; --sage-soft: #304B36; --sage-deep: #CBE4C8; --error: #F0A79F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 17px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    display: grid; place-items: center; padding: 24px 20px;
+  }
+  .card {
+    width: 100%; max-width: 420px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 24px; padding: 32px 26px; display: grid; gap: 14px; text-align: left;
+  }
+  .badge { width: 56px; height: 56px; border-radius: 50%; background: var(--sage-soft); display: grid; place-items: center; }
+  .badge svg { width: 28px; height: 28px; fill: var(--sage-deep); }
+  .badge.error { background: color-mix(in srgb, var(--error) 18%, transparent); }
+  .badge.error svg { fill: var(--error); }
+  h1 { font-size: 24px; line-height: 1.2; margin: 6px 0 0; letter-spacing: -.01em; }
+  p { margin: 0; color: var(--muted); }
+  .btn {
+    display: flex; align-items: center; justify-content: center; min-height: 52px; margin-top: 8px;
+    border-radius: 16px; background: var(--sage); color: var(--sage-ink); font-weight: 600; text-decoration: none;
+  }
+  .btn:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
+  .home { color: var(--sage); font-size: 15px; text-align: center; }
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+  <div class="badge" id="badge">
+    <svg id="icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+    <svg id="icon-err" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M11 7h2v7h-2zm0 9h2v2h-2zm1-14a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
+  </div>
+  <h1 id="title"></h1>
+  <p id="body"></p>
+  <a class="btn" id="open" href="#" hidden></a>
+  <a class="home" id="home" href="/"></a>
+</main>
+<script>
+(function () {
+  // Supabase Auth sends people here after they confirm their email or ask to
+  // reset their password. On an Android phone with the app, we hand the
+  // one-time code to the app. Anywhere else we explain what happened instead
+  // of leaving a blank "about:blank" page.
+  var tr = (navigator.language || "").toLowerCase().indexOf("tr") === 0;
+  var t = tr ? {
+    okTitle: "E-postan doğrulandı",
+    okBody: "Harika! Şimdi uygulamaya dönüp e-posta ve şifrenle giriş yapabilirsin.",
+    openTitle: "Uygulama açılıyor…",
+    openBody: "Açılmazsa aşağıdaki düğmeye dokun.",
+    open: "Uygulamada aç",
+    recoveryTitle: "Bu linki telefonunda aç",
+    recoveryBody: "Şifre sıfırlama, isteği yaptığın telefondaki uygulamada tamamlanır. E-postayı telefonunda açıp linke oradan dokun.",
+    errTitle: "Bu linkin süresi dolmuş",
+    errBody: "Linkler bir kez ve sınırlı süre kullanılabilir. Uygulamadan yeni bir link iste ya da giriş yap.",
+    home: "Nereye Koydum? ana sayfası"
+  } : {
+    okTitle: "Your email is confirmed",
+    okBody: "All set. Go back to the app and sign in with your email and password.",
+    openTitle: "Opening the app…",
+    openBody: "If nothing happens, tap the button below.",
+    open: "Open in the app",
+    recoveryTitle: "Open this link on your phone",
+    recoveryBody: "Password resets finish in the app on the phone where you asked for them. Open the email on your phone and tap the link there.",
+    errTitle: "This link has expired",
+    errBody: "Links work once and for a limited time. Ask for a new one in the app, or sign in.",
+    home: "Where Did I Put It? home page"
+  };
+  document.documentElement.lang = tr ? "tr" : "en";
+
+  var query = new URLSearchParams(location.search);
+  var hash = new URLSearchParams(location.hash.replace(/^#/, ""));
+  var hasError = query.has("error") || hash.has("error") || query.has("error_code") || hash.has("error_code");
+  var code = query.get("code");
+  var isRecovery = query.get("type") === "recovery";
+  var isAndroid = /Android/i.test(navigator.userAgent);
+
+  function show(title, body, error) {
+    document.getElementById("title").textContent = title;
+    document.getElementById("body").textContent = body;
+    document.getElementById("icon-ok").hidden = !!error;
+    document.getElementById("icon-err").hidden = !error;
+    document.getElementById("badge").classList.toggle("error", !!error);
+  }
+  document.getElementById("home").textContent = t.home;
+
+  if (hasError) {
+    show(t.errTitle, t.errBody, true);
+  } else if (code && isAndroid) {
+    // Hand the one-time code to the app. The fallback shows the confirmation
+    // text when the app isn't installed.
+    var params = location.search.replace(/^\?/, "");
+    var fallback = location.origin + location.pathname + "?handoff=failed" + (isRecovery ? "&type=recovery" : "");
+    var intentUrl = "intent://auth-callback?" + params +
+      "#Intent;scheme=wheredidiputit;package=com.wheredidiputit.app;S.browser_fallback_url=" +
+      encodeURIComponent(fallback) + ";end";
+    var btn = document.getElementById("open");
+    btn.textContent = t.open;
+    btn.href = intentUrl;
+    btn.hidden = false;
+    show(t.openTitle, t.openBody, false);
+    location.replace(intentUrl);
+  } else if (isRecovery) {
+    show(t.recoveryTitle, t.recoveryBody, false);
+  } else {
+    // Supabase confirms the email before redirecting here, so this is true
+    // even when the link was opened on a computer or another phone.
+    show(t.okTitle, t.okBody, false);
+  }
+})();
+</script>
+</body>
+</html>
