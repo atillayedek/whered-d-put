@@ -26,8 +26,24 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v5
 
-      # One stable debug signing key, so each beta APK installs over the last.
-      - name: Reuse beta signing key
+      # One stable signing key for the beta APK, so each one installs over the
+      # last. It comes from a secret: Actions caches can be read by pull
+      # requests from forks, so a cached key could be copied and used to sign
+      # a fake "update". The cache is only a fallback until the secret exists.
+      - name: Restore beta signing key
+        env:
+          BETA_KEYSTORE_BASE64: ${{ secrets.WDIPI_BETA_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$BETA_KEYSTORE_BASE64" ]; then
+            mkdir -p ~/.android
+            echo "$BETA_KEYSTORE_BASE64" | base64 --decode > ~/.android/debug.keystore
+            echo "HAS_BETA_KEY=true" >> "$GITHUB_ENV"
+          else
+            echo "::warning::WDIPI_BETA_KEYSTORE_BASE64 missing: the beta APK is signed with a cached key."
+          fi
+
+      - name: Reuse cached beta signing key
+        if: env.HAS_BETA_KEY != 'true'
         uses: actions/cache@v4
         with:
           path: ~/.android/debug.keystore
@@ -83,7 +99,9 @@ jobs:
 
       - name: Remove keystore from the runner
         if: always()
-        run: rm -f "$RUNNER_TEMP/upload-keystore.jks"
+        run: |
+          rm -f "$RUNNER_TEMP/upload-keystore.jks"
+          if [ "$HAS_BETA_KEY" = "true" ]; then rm -f ~/.android/debug.keystore; fi
 
       - name: Upload build outputs
         if: always()

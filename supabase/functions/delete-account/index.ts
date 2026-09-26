@@ -68,6 +68,11 @@ async function deleteUserPhotos(admin: any, userId: string): Promise<void> {
 
     for (const folder of folders) {
       const prefix = `${root}/${folder.name}`;
+      // Entries with an id are files placed directly under items/; delete them too.
+      if (folder.id) {
+        paths.push(prefix);
+        continue;
+      }
       for (let fileOffset = 0; ; fileOffset += PAGE) {
         const { data: files, error: filesError } = await bucket.list(prefix, { limit: PAGE, offset: fileOffset });
         if (filesError) throw filesError;

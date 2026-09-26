@@ -87,6 +87,8 @@ The migrations create:
   access for `anon`; no client hard-deletes.
 - A private `item-photos` bucket (JPEG only, 5 MB limit) with per-user folder
   policies.
+- A trigger that erases the name, place, note, category and photo path of a
+  memory as soon as it is deleted; only the sync tombstone remains.
 
 Then, in the Supabase dashboard:
 
@@ -185,6 +187,13 @@ Set `AUTH_WEB_URL` to override the website address the app uses for email links.
   (output of `base64 -w0 upload-keystore.jks`), `WDIPI_KEYSTORE_PASSWORD`,
   `WDIPI_KEY_ALIAS`, `WDIPI_KEY_PASSWORD`. The keystore is decoded into the
   runner's temp folder only for the build and deleted afterwards.
+
+  The beta APK on the website is signed with a separate beta key. Add it as
+  `WDIPI_BETA_KEYSTORE_BASE64` (a keystore with alias `androiddebugkey` and
+  password `android`, e.g. `keytool -genkeypair -keystore beta.keystore
+  -alias androiddebugkey -storepass android -keypass android -keyalg RSA
+  -validity 10000 -dname "CN=Beta"`). Without it CI falls back to a cached
+  key, which pull requests from forks can read.
 - Adaptive + themed (monochrome) launcher icon, splash screen, backups
   disabled, cleartext traffic disabled.
 - **Privacy policy:** publish [`docs/PRIVACY_POLICY.md`](docs/PRIVACY_POLICY.md)
