@@ -18,8 +18,7 @@ body {
 .wrap { max-width: 720px; margin-inline: auto; }
 header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ink); text-decoration: none; }
-.pin { width: 32px; height: 32px; border-radius: 50%; background: var(--sage-soft); display: grid; place-items: center; }
-.pin svg { width: 17px; height: 17px; fill: var(--sage-deep); }
+.logo { width: 32px; height: 32px; flex: none; }
 .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
 .lang button { font: 600 14px/1 inherit; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 9px 14px; cursor: pointer; min-height: 36px; }
 .lang button[aria-pressed="true"] { background: var(--sage); color: var(--sage-ink); }

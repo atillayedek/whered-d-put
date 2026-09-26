@@ -286,7 +286,9 @@ SENİN DİLİNDE
 
 5.3 Grafikler
   App icon ............ 512 x 512 PNG, 32-bit, en fazla 1 MB
-                        (Adaçayı yeşili #4E6B53 konum iğnesi, açık #E4ECE1 zemin)
+                        Hazır dosya: docs/store/play-icon-512.png
+                        (Camgöbeği #45D3E3 soru işareti, noktası konum iğnesi;
+                        lacivert #0E3A5C → petrol #0C5F6E degrade zemin)
   Feature graphic ..... 1024 x 500 PNG/JPG (zorunlu) — prompt 7. bölümde
   Phone screenshots ... 2–8 adet, 9:16, en az 1080 x 1920 önerilir
                         — 6 prompt 7. bölümde
@@ -446,8 +448,8 @@ Tanıtım görseli (Feature graphic, 1024x500, ZORUNLU)
 ---------------------------------------------------------------
 Prompt:
 Horizontal 1024x500 banner, warm off-white #F6F4EF background. Left side:
-app icon (sage green #4E6B53 location pin with a light center, on a pale
-sage circle) and the text "Where Did I Put It?" in a modern grotesque sans
+app icon (a rounded square with a navy #0E3A5C to teal #0C5F6E gradient and
+a cyan #45D3E3 question mark whose dot is a location pin) and the text "Where Did I Put It?" in a modern grotesque sans
 serif, near-black, with the tagline "Save it now. Find it later." in sage
 green below. Right side: a softly tilted Android phone showing a search
 result card "Passport — Desk, second drawer" with a green pin. Lots of

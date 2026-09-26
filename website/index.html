@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Where Did I Put It?</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <meta name="description" content="Save where you put things in seconds. Find them later by searching. A calm, private Android app.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,8 +59,7 @@
   /* Header */
   header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
   .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 18px; }
-  .pin { width: 34px; height: 34px; border-radius: 50%; background: var(--sage-soft); display: grid; place-items: center; flex: none; }
-  .pin svg { width: 18px; height: 18px; fill: var(--sage-deep); }
+  .logo { width: 34px; height: 34px; flex: none; }
   .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
   .lang button {
     font: 600 14px/1 var(--body); color: var(--muted); background: none; border: 0; border-radius: 999px;
@@ -163,7 +163,7 @@
 
 <div class="wrap">
   <header>
-    <div class="brand"><div class="pin"><svg><use href="#i-pin"/></svg></div><span data-i18n="brand">Where Did I Put It?</span></div>
+    <div class="brand"><img class="logo" src="/icon.svg" alt="" width="34" height="34"><span data-i18n="brand">Where Did I Put It?</span></div>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" id="lang-en" data-lang="en" aria-pressed="true">English</button>
       <button type="button" id="lang-tr" data-lang="tr" aria-pressed="false">Türkçe</button>
