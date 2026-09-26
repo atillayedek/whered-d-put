@@ -28,6 +28,8 @@ fun config(name: String, source: Properties = localProperties): String =
 
 val supabaseUrl = config("SUPABASE_URL")
 val supabaseAnonKey = config("SUPABASE_ANON_KEY")
+// Public website that forwards email confirmation / reset links into the app.
+val authWebUrl = config("AUTH_WEB_URL").ifEmpty { "https://wheredidiputit-ochre.vercel.app" }
 
 // AdMob. Release builds show ads only when real IDs are provided. Debug builds
 // always use Google's official test IDs so real ads are never served or
@@ -54,6 +56,7 @@ android {
 
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
+        buildConfigField("String", "AUTH_WEB_URL", "\"$authWebUrl\"")
     }
 
     signingConfigs {

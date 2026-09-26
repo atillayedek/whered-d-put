@@ -4,8 +4,8 @@ project_id = "wheredidiputit"
 
 [auth]
 # Links in confirmation / reset emails redirect back into the Android app.
-site_url = "wheredidiputit://auth-callback"
-additional_redirect_urls = ["wheredidiputit://auth-callback", "wheredidiputit://auth-callback?type=recovery"]
+site_url = "https://wheredidiputit-ochre.vercel.app/auth/callback"
+additional_redirect_urls = ["https://wheredidiputit-ochre.vercel.app/auth/callback**", "wheredidiputit://auth-callback**"]
 enable_signup = true
 
 [auth.email]

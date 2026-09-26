@@ -26,6 +26,13 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v5
 
+      # One stable debug signing key, so each beta APK installs over the last.
+      - name: Reuse beta signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: beta-debug-keystore-v1
+
       - name: Report configuration
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -155,3 +162,32 @@ jobs:
             smoke-test/*.png
             smoke-test/contact-sheet.jpg
             smoke-test/logcat.txt
+
+  beta-release:
+    # Publishes the tested debug APK as the downloadable beta on the website.
+    needs: [build, smoke-test]
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: build-outputs
+          path: outputs
+
+      - name: Name the APK
+        run: cp outputs/outputs/apk/debug/app-debug.apk wheredidiputit-beta.apk
+
+      - name: Update the beta release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: beta
+          name: Beta
+          prerelease: true
+          make_latest: false
+          body: |
+            Test build of Where Did I Put It? for early testers.
+            Built from ${{ github.sha }}. Shows Google's sample ads.
+            Install: download wheredidiputit-beta.apk on an Android 8.0+ phone and open it.
+          files: wheredidiputit-beta.apk

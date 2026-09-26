@@ -92,8 +92,12 @@ Then, in the Supabase dashboard:
 
 1. **Authentication → Providers → Email:** enable email sign-ups and
    *Confirm email*.
-2. **Authentication → URL Configuration:** add
-   `wheredidiputit://auth-callback**` to *Redirect URLs*.
+2. **Authentication → URL Configuration:** set *Site URL* to
+   `https://wheredidiputit-ochre.vercel.app/auth/callback` and add both
+   `https://wheredidiputit-ochre.vercel.app/auth/callback**` and
+   `wheredidiputit://auth-callback**` to *Redirect URLs*. Email links open that
+   web page, which hands the one-time code to the app on the phone, or shows
+   "Your email is confirmed" anywhere else (instead of a blank page).
 3. **Edge Functions → delete-account:** keep *Verify JWT* on. The function uses
    the built-in `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets.
 4. For production email volume, configure a custom SMTP provider.
@@ -145,6 +149,19 @@ emulator, walks the signed-out screens in light and dark mode, fails on any
 crash and keeps the screenshots as the `smoke-test-screenshots` artifact. Add `SUPABASE_URL` and `SUPABASE_ANON_KEY` as
 repository secrets to produce a connected build, and `ADMOB_APP_ID` /
 `ADMOB_INTERSTITIAL_ID` for a release build with ads.
+
+## Website
+
+`website/` is the static landing page (English/Türkçe, live search demo, beta
+download) plus `/auth/callback`. It is the Vercel project `wheredidiputit`
+(root directory `website`, no build step), served at
+https://wheredidiputit-ochre.vercel.app. Connect the Vercel project to this
+GitHub repository so every push redeploys it.
+
+The beta download points at the `beta` GitHub release, which CI refreshes
+with the tested debug APK after every green build of the default branch. A
+cached debug key keeps the signature stable so new betas install over old ones.
+Set `AUTH_WEB_URL` to override the website address the app uses for email links.
 
 ## Release & Google Play
 
