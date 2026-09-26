@@ -1,7 +1,8 @@
 # Privacy Policy — Where Did I Put It?
 
-*Before publishing: add the name of the legal entity operating the app, a
-contact email address, and the effective date. Google Play requires all three.*
+Effective date: 26 September 2026. Operated by **Atilla Taşdemir**.
+Contact: atilla12339@gmail.com. Published at
+https://wheredidiputit-ochre.vercel.app/privacy (English and Turkish).
 
 ## What the app does
 

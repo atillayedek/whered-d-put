@@ -6,6 +6,9 @@
 Bu dosya Play Console'daki alanları, Console'daki sırayla ve kopyalanabilir
 cevaplarla veriyor. [KÖŞELİ PARANTEZ] içindekileri kendi bilgilerinle doldur.
 
+Geliştirici: Atilla Taşdemir · Destek: atilla12339@gmail.com
+Doğrulama e-postalarının gönderen adresi: noreply@kapinda.site
+
 Uygulama bilgileri (referans):
   Paket adı (applicationId) : com.wheredidiputit.app
   Sürüm                     : 1.0.0 (versionCode 1)
@@ -22,11 +25,10 @@ Uygulama bilgileri (referans):
 [ ] İmzalı release AAB (keystore + GitHub secret'ları; README'de anlatılıyor)
 [ ] AdMob hesabı + ADMOB_APP_ID ve ADMOB_INTERSTITIAL_ID GitHub secret'ları
     (bunlar olmadan release sürüm reklam göstermez, yine de yüklenebilir)
-[ ] Gizlilik politikası için herkese açık bir URL
-    (docs/PRIVACY_POLICY.md hazır; adını ve e-postanı ekleyip siteye koyacağız)
-[ ] Hesap silme talebi için herkese açık bir URL
+[x] Gizlilik politikası: https://wheredidiputit-ochre.vercel.app/privacy
+[x] Hesap silme: https://wheredidiputit-ochre.vercel.app/delete-account
 [ ] Google'ın inceleme ekibi için bir TEST HESABI (aşağıda 3. bölüm)
-[ ] Destek e-posta adresi
+[x] Destek e-postası: atilla12339@gmail.com
 [ ] 512x512 ikon, 1024x500 tanıtım görseli, en az 2 (öneri: 6) ekran görüntüsü
 
 
@@ -51,7 +53,7 @@ Declarations ........... Developer Program Policies: ✔
 
 2.1 Privacy policy
     URL: https://wheredidiputit-ochre.vercel.app/privacy
-    (Bu sayfa henüz yok. Adını ve iletişim e-postanı söyle, ekleyeyim.)
+    (Yayında: İngilizce + Türkçe, Atilla Taşdemir / atilla12339@gmail.com)
 
 2.2 App access (Uygulama erişimi)
     Seçim: "All or some functionality is restricted"
@@ -70,7 +72,7 @@ Declarations ........... Developer Program Policies: ✔
     "Does your app contain ads?" → Yes, my app contains ads
 
 2.4 Content rating (İçerik derecelendirmesi — IARC anketi)
-    E-posta: [iletişim e-postan]
+    E-posta: atilla12339@gmail.com
     Category: "All Other App Types" (Productivity/Utility)
     Sorular:
       Violence / şiddet ........................... No
@@ -111,8 +113,8 @@ Declarations ........... Developer Program Policies: ✔
      "Do you provide a way for users to request that their account and
       associated data be deleted?" → Yes
      Delete account URL: https://wheredidiputit-ochre.vercel.app/delete-account
-     (Bu sayfa henüz yok; iletişim e-postanla birlikte ekleyeyim.
-      Uygulama içinde: Settings → Delete account / Ayarlar → Hesabı sil)
+     (Yayında. Uygulama içinde: Settings → Delete account / Ayarlar → Hesabı sil;
+      uygulamasız: atilla12339@gmail.com adresine e-posta)
 
 
 ---------------------------------------------------------------------
@@ -293,7 +295,7 @@ SENİN DİLİNDE
 5.4 Kategori ve iletişim (Store settings)
   App category ........ Productivity
   Tags ................ Productivity, Organizer, Notes, To-do & Reminders (en uygun 5'i seç)
-  Email ............... [destek e-postan]   (ZORUNLU, herkese açık görünür)
+  Email ............... atilla12339@gmail.com   (herkese açık görünür)
   Phone ............... boş bırakılabilir
   Website ............. https://wheredidiputit-ochre.vercel.app
   External marketing .. açık kalabilir
