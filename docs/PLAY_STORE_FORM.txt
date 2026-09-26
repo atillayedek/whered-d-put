@@ -1,0 +1,469 @@
+=====================================================================
+  NEREYE KOYDUM? / WHERE DID I PUT IT?
+  GOOGLE PLAY CONSOLE — DOLDURULACAK HER ŞEY
+=====================================================================
+
+Bu dosya Play Console'daki alanları, Console'daki sırayla ve kopyalanabilir
+cevaplarla veriyor. [KÖŞELİ PARANTEZ] içindekileri kendi bilgilerinle doldur.
+
+Uygulama bilgileri (referans):
+  Paket adı (applicationId) : com.wheredidiputit.app
+  Sürüm                     : 1.0.0 (versionCode 1)
+  Min Android               : 8.0 (API 26)
+  Target SDK                : 36
+  Diller                    : Türkçe, İngilizce (uygulama içinden seçilebilir)
+  Web sitesi                : https://wheredidiputit-ochre.vercel.app
+
+
+---------------------------------------------------------------------
+0. BAŞLAMADAN ÖNCE HAZIR OLMASI GEREKENLER
+---------------------------------------------------------------------
+[ ] Google Play geliştirici hesabı (25 USD, tek sefer)
+[ ] İmzalı release AAB (keystore + GitHub secret'ları; README'de anlatılıyor)
+[ ] AdMob hesabı + ADMOB_APP_ID ve ADMOB_INTERSTITIAL_ID GitHub secret'ları
+    (bunlar olmadan release sürüm reklam göstermez, yine de yüklenebilir)
+[ ] Gizlilik politikası için herkese açık bir URL
+    (docs/PRIVACY_POLICY.md hazır; adını ve e-postanı ekleyip siteye koyacağız)
+[ ] Hesap silme talebi için herkese açık bir URL
+[ ] Google'ın inceleme ekibi için bir TEST HESABI (aşağıda 3. bölüm)
+[ ] Destek e-posta adresi
+[ ] 512x512 ikon, 1024x500 tanıtım görseli, en az 2 (öneri: 6) ekran görüntüsü
+
+
+---------------------------------------------------------------------
+1. UYGULAMA OLUŞTUR (Create app)
+---------------------------------------------------------------------
+App name ............... Where Did I Put It?
+                         (Türkçe mağaza çevirisinde: Nereye Koydum?)
+Default language ....... English (United States) – en-US
+                         (Türkçe'yi 5. bölümde çeviri olarak ekle.
+                          Hedef kitle ağırlıklı Türkiye ise varsayılanı
+                          Turkish – tr-TR yapabilirsin; ikisi de olur.)
+App or game ............ App
+Free or paid ........... Free
+Declarations ........... Developer Program Policies: ✔
+                         US export laws: ✔
+
+
+---------------------------------------------------------------------
+2. UYGULAMA İÇERİĞİ (Policy → App content)
+---------------------------------------------------------------------
+
+2.1 Privacy policy
+    URL: https://wheredidiputit-ochre.vercel.app/privacy
+    (Bu sayfa henüz yok. Adını ve iletişim e-postanı söyle, ekleyeyim.)
+
+2.2 App access (Uygulama erişimi)
+    Seçim: "All or some functionality is restricted"
+    Açıklama (İngilizce yaz):
+      Name: Review account
+      Username: [inceleme-icin@eposta.com]
+      Password: [şifre]
+      Any other information:
+        "The app requires an account. Sign in with the credentials above on
+         the Sign in screen. The email for this account is already confirmed.
+         No other steps are needed."
+    NOT: Bu hesabı önceden aç ve e-postasını doğrula. Test ettikten sonra
+    Ayarlar'dan "Hesabı sil" DEME; yoksa inceleme ekibi giriş yapamaz.
+
+2.3 Ads (Reklamlar)
+    "Does your app contain ads?" → Yes, my app contains ads
+
+2.4 Content rating (İçerik derecelendirmesi — IARC anketi)
+    E-posta: [iletişim e-postan]
+    Category: "All Other App Types" (Productivity/Utility)
+    Sorular:
+      Violence / şiddet ........................... No
+      Sexuality / cinsellik ....................... No
+      Language / küfür ............................ No
+      Controlled substances / uyuşturucu, alkol ... No
+      Crude humor ................................. No
+      Gambling / kumar ............................ No
+      Does the app allow users to interact or
+        exchange content with other users? ........ No (kayıtlar sadece kişiye özel)
+      Does the app share the user's current
+        physical location with other users? ....... No
+      Does the app allow users to purchase
+        digital goods? ............................ No
+      Does the app contain ads? ................... Yes
+      Is the app a web browser or search engine? .. No
+      Is the app primarily news or educational? ... No
+    Beklenen sonuç: PEGI 3 / Everyone / Genel izleyici
+
+2.5 Target audience and content (Hedef kitle)
+    Target age groups: 18 and over
+      (Reklam içerdiği için 13 yaş altını SEÇME; yoksa "Families" politikası
+       ve reklam kısıtlamaları devreye girer. 18+ en sorunsuz seçenek.)
+    "Could your store listing unintentionally appeal to children?" → No
+
+2.6 News apps → No, it is not a news app
+2.7 COVID-19 contact tracing and status apps → My app is not ...
+2.8 Data safety → aşağıda 4. bölüm (en uzun kısım)
+2.9 Government apps → No
+2.10 Financial features → My app doesn't provide any financial features
+2.11 Health → My app does not have any health features
+2.12 Advertising ID
+     "Does your app use advertising ID?" → Yes
+     Purpose: Advertising or marketing, Analytics
+     (AdMob SDK kullandığı için. Manifest'e AD_ID izni SDK tarafından eklenir.)
+
+2.13 Account deletion (Hesap silme) — Data safety formunun içinde sorulur
+     "Do you provide a way for users to request that their account and
+      associated data be deleted?" → Yes
+     Delete account URL: https://wheredidiputit-ochre.vercel.app/delete-account
+     (Bu sayfa henüz yok; iletişim e-postanla birlikte ekleyeyim.
+      Uygulama içinde: Settings → Delete account / Ayarlar → Hesabı sil)
+
+
+---------------------------------------------------------------------
+3. İNCELEME İÇİN TEST HESABI NASIL HAZIRLANIR
+---------------------------------------------------------------------
+1) Beta APK'yı kur, yeni bir e-postayla hesap aç (ör. yeni bir Gmail).
+2) Gelen doğrulama e-postasındaki linke dokun.
+3) Uygulamada giriş yap, 2–3 örnek kayıt ekle (inceleyen boş ekran görmesin).
+4) E-posta ve şifreyi 2.2'ye yaz. Bu hesabı silme.
+
+
+---------------------------------------------------------------------
+4. DATA SAFETY (Veri güvenliği) — ADIM ADIM CEVAPLAR
+---------------------------------------------------------------------
+4.1 Data collection and security
+    Does your app collect or share any of the required user data types? → Yes
+    Is all of the user data collected by your app encrypted in transit? → Yes
+    Which of the following methods of account creation does your app support?
+      → Username and password (e-posta + şifre)
+    Do you provide a way for users to request that their data is deleted? → Yes
+    Delete account URL → https://wheredidiputit-ochre.vercel.app/delete-account
+
+4.2 Data types — İŞARETLENECEKLER
+
+  PERSONAL INFO
+    [x] Email address
+        Collected: Yes | Shared: No
+        Processed ephemerally: No
+        Required or optional: Required (users can't turn off)
+        Purposes: App functionality, Account management
+
+    [x] Other info  (eşya adı, konum metni, not, kategori)
+        Collected: Yes | Shared: No
+        Processed ephemerally: No
+        Required: Required
+        Purposes: App functionality
+
+  PHOTOS AND VIDEOS
+    [x] Photos
+        Collected: Yes | Shared: No
+        Processed ephemerally: No
+        Required or optional: Optional (users can choose)
+        Purposes: App functionality
+
+  LOCATION
+    [x] Approximate location   (AdMob SDK, IP adresinden)
+        Collected: Yes | Shared: Yes
+        Processed ephemerally: No
+        Required: Required
+        Purposes: Advertising or marketing, Analytics, Fraud prevention, security, and compliance
+    [ ] Precise location → İŞARETLEME (uygulama GPS kullanmaz; fotoğraflardaki
+        konum bilgisi yüklemeden önce silinir)
+
+  APP ACTIVITY
+    [x] App interactions   (AdMob SDK: reklam etkileşimleri)
+        Collected: Yes | Shared: Yes
+        Required: Required
+        Purposes: Advertising or marketing, Analytics
+
+  APP INFO AND PERFORMANCE
+    [x] Crash logs         (AdMob SDK)
+    [x] Diagnostics        (AdMob SDK)
+        Collected: Yes | Shared: Yes
+        Required: Required
+        Purposes: Advertising or marketing, Analytics, Fraud prevention, security, and compliance
+
+  DEVICE OR OTHER IDs
+    [x] Device or other IDs   (reklam kimliği / Advertising ID)
+        Collected: Yes | Shared: Yes
+        Required: Required
+        Purposes: Advertising or marketing, Analytics, Fraud prevention, security, and compliance
+
+  İŞARETLENMEYECEKLER:
+    Name, Address, Phone, Race, Political, Religious, Sexual orientation,
+    Financial info (hepsi), Health and fitness, Messages (hepsi),
+    Videos, Audio (Voice or sound recordings — ses kaydı saklanmaz; konuşma
+    telefonun kendi ses tanıma servisiyle yazıya çevrilir, uygulama sadece
+    metni alır), Music, Files and docs, Calendar, Contacts,
+    Web browsing history, Search history (arama sadece cihazda yapılır).
+
+  UYARI: Google'ın AdMob veri beyanı zaman zaman değişir. Göndermeden önce
+  kontrol et: https://developers.google.com/admob/android/privacy/play-data-disclosure
+
+
+---------------------------------------------------------------------
+5. MAĞAZA GİRİŞİ (Grow → Store presence → Main store listing)
+---------------------------------------------------------------------
+
+5.1 İNGİLİZCE (en-US) — varsayılan
+
+App name (en fazla 30 karakter):
+Where Did I Put It?
+
+Short description (en fazla 80 karakter):
+Save where you put things in seconds. Find them later by searching.
+
+Full description (en fazla 4000 karakter):
+"Where did I put my passport?" Never again.
+
+Where Did I Put It? is a calm, private notebook for the things you put away:
+passports, spare keys, warranty papers, chargers, winter clothes. Save it now,
+find it later.
+
+SAVE IN SECONDS
+• Type the item and where it is. That's it.
+• Or just say it: "I put my passport in the second drawer of my desk."
+• Add a photo when words aren't enough.
+
+FIND IT INSTANTLY
+• Search by item, place or note. Capitals and accents don't matter.
+• The answer, where it is, shows right in the results.
+• Keep important things in Favorites.
+
+WORKS OFFLINE
+• Everything is saved on your phone first and works without internet.
+• Your memories sync to your private account when you're online, so nothing is
+  lost if you change phones.
+
+PRIVATE BY DESIGN
+• Only you can see your memories.
+• Photo location data is removed before anything is saved.
+• Delete a memory, or your whole account, at any time from the app.
+
+IN YOUR LANGUAGE
+• English and Turkish, light and dark mode.
+
+Free, with a few ads: at most three a day, and never while you search.
+
+
+5.2 TÜRKÇE (tr-TR) — "Manage translations → Add your own translations"
+
+Uygulama adı (en fazla 30):
+Nereye Koydum?
+
+Kısa açıklama (en fazla 80):
+Eşyalarını nereye koyduğunu saniyeler içinde kaydet, sonra aramayla bul.
+
+Tam açıklama (en fazla 4000):
+"Pasaportumu nereye koymuştum?" Bir daha yok.
+
+Nereye Koydum?, kaldırdığın eşyalar için sakin ve gizli bir defter: pasaport,
+yedek anahtar, garanti belgeleri, şarj aletleri, kışlıklar. Şimdi kaydet,
+sonra bul.
+
+SANİYELER İÇİNDE KAYDET
+• Eşyayı ve nerede olduğunu yaz. Bu kadar.
+• Ya da sadece söyle: "Pasaportumu çalışma masasının ikinci çekmecesine koydum."
+• Kelimeler yetmediğinde fotoğraf ekle.
+
+HEMEN BUL
+• Eşya, yer ya da nota göre ara; "cekmece" yazınca "Çekmece" de bulunur.
+• Asıl cevap, yani nerede olduğu, sonuçlarda hemen görünür.
+• Önemli olanları Favorilere ekle.
+
+İNTERNETSİZ ÇALIŞIR
+• Her şey önce telefonuna kaydedilir, internet olmadan da çalışır.
+• İnternete bağlanınca hesabınla eşitlenir; telefon değiştirsen de kaybolmaz.
+
+GİZLİLİK ÖNCELİKLİ
+• Kayıtlarını sadece sen görebilirsin.
+• Fotoğraflardaki konum bilgisi kaydedilmeden önce silinir.
+• İstediğin an bir kaydı ya da tüm hesabını uygulamadan silebilirsin.
+
+SENİN DİLİNDE
+• Türkçe ve İngilizce, açık ve koyu mod.
+
+Ücretsiz, az reklamlı: günde en fazla üç reklam, arama yaparken asla.
+
+
+5.3 Grafikler
+  App icon ............ 512 x 512 PNG, 32-bit, en fazla 1 MB
+                        (Adaçayı yeşili #4E6B53 konum iğnesi, açık #E4ECE1 zemin)
+  Feature graphic ..... 1024 x 500 PNG/JPG (zorunlu) — prompt 7. bölümde
+  Phone screenshots ... 2–8 adet, 9:16, en az 1080 x 1920 önerilir
+                        — 6 prompt 7. bölümde
+  7-inch / 10-inch tablet ekran görüntüsü: isteğe bağlı, boş bırakabilirsin
+
+5.4 Kategori ve iletişim (Store settings)
+  App category ........ Productivity
+  Tags ................ Productivity, Organizer, Notes, To-do & Reminders (en uygun 5'i seç)
+  Email ............... [destek e-postan]   (ZORUNLU, herkese açık görünür)
+  Phone ............... boş bırakılabilir
+  Website ............. https://wheredidiputit-ochre.vercel.app
+  External marketing .. açık kalabilir
+
+
+---------------------------------------------------------------------
+6. YAYIN (Release)
+---------------------------------------------------------------------
+
+6.1 Countries / regions: Türkiye + istediğin diğer ülkeler
+    (Başlangıç için: Turkey, United States, United Kingdom, Germany…)
+
+6.2 Kapalı test (yeni kişisel hesaplar için ZORUNLU)
+    Testing → Closed testing → Create track
+    - En az 12 test kullanıcısı (Gmail adresleriyle e-posta listesi)
+    - En az 14 gün kesintisiz test
+    - Sonra Dashboard'dan "Apply for production" başvurusu
+
+6.3 Release adı ve notları
+    Release name: 1.0.0
+    Release notes:
+<en-US>
+First release. Save where you put things by typing, speaking or adding a photo, and find them later with search. Works offline, in English and Turkish.
+</en-US>
+<tr-TR>
+İlk sürüm. Eşyalarını nereye koyduğunu yazarak, söyleyerek ya da fotoğrafla kaydet, sonra aramayla bul. İnternetsiz çalışır; Türkçe ve İngilizce.
+</tr-TR>
+
+6.4 App signing: "Use Play App Signing" (önerilen). Yüklediğin AAB'yi kendi
+    upload keystore'unla imzalarsın; Google son imzayı kendisi atar.
+    Keystore dosyasını ve şifresini KAYBETME.
+
+6.5 Bilinmesi gerekenler
+    - Mikrofon izni (RECORD_AUDIO) sadece "Söyle"ye basınca istenir. Ayrı
+      bir izin beyan formu gerekmez.
+    - Fotoğraflar Android Photo Picker ile seçilir; READ_MEDIA_IMAGES izni
+      YOK, bu yüzden "Photo and video permissions" beyanı gerekmez.
+    - Uygulama ön planda konum, SMS, arama kaydı gibi hassas izinler istemez.
+
+
+---------------------------------------------------------------------
+7. GÖRSEL PROMPT'LARI (6 ekran görüntüsü + 1 tanıtım görseli)
+---------------------------------------------------------------------
+
+ÖNEMLİ — Google Play kuralı: Ekran görüntüleri uygulamanın GERÇEK
+arayüzünü göstermeli. Yapay zekânın uydurduğu bir arayüz reddedilebilir.
+En güvenli yol:
+  1) Uygulamanın gerçek ekran görüntüsünü al (emülatör/Appetize/telefon).
+  2) Aşağıdaki prompt'larla sadece ARKA PLANI + TELEFON ÇERÇEVESİNİ +
+     BAŞLIĞI üret, gerçek ekran görüntüsünü telefonun içine yerleştir.
+  (Canva, Figma veya "App Mockup" araçlarında "screenshot içine yerleştir"
+   özelliği var.)
+
+ORTAK STİL (her prompt'un sonuna eklenebilir):
+  Style: calm, minimal, premium, soft. Background warm off-white #F6F4EF
+  with a very subtle paper texture. Accent color muted sage green #4E6B53,
+  soft light sage #D5E4D2. Near-black text #1E1F1C. Modern grotesque sans
+  serif headline, medium weight, left aligned in the top third. A modern
+  Android phone (thin bezels, rounded corners) centered in the lower two
+  thirds, slight soft shadow, no reflections, no gradients, no neon, no
+  clutter, no people, no emoji. Vertical 9:16, 1080x1920.
+
+---------------------------------------------------------------
+Görsel 1 — Ana fikir (Kaydet → Bul)
+---------------------------------------------------------------
+TR başlık: "Nereye koyduğunu kaydet. Sonra saniyede bul."
+EN headline: "Save where you put it. Find it in seconds."
+Prompt:
+Vertical 9:16 app store screenshot, warm off-white #F6F4EF background,
+headline at the top in near-black: "Save where you put it. Find it in
+seconds." with the words "Find it in seconds." in sage green #4E6B53. Below,
+an Android phone showing the app's home screen: a large rounded search bar
+"Search your memories…", a "Recent" list of soft white cards each with an
+item name and a small green location pin with the place, and a sage green
+"Remember something" button at the bottom right. A small line-art passport
+and key illustration floating softly beside the phone. Calm, minimal, premium.
+Göstereceğin gerçek ekran: Ana sayfa (birkaç kayıt eklenmiş halde).
+
+---------------------------------------------------------------
+Görsel 2 — Arama cevabı
+---------------------------------------------------------------
+TR başlık: "Aradığın an cevap: nerede olduğu."
+EN headline: "Search, and the answer is right there."
+Prompt:
+Vertical 9:16 app store screenshot, warm off-white background, headline
+"Search, and the answer is right there." Phone shows a search for
+"passport" with one highlighted result card: title "Passport" and below it a
+green location pin with "Desk, second drawer". A thin sage green circle
+gently highlights the location line. Minimal, calm, lots of breathing room.
+Göstereceğin gerçek ekran: Ana sayfada "pasaport" araması yapılmış hali.
+
+---------------------------------------------------------------
+Görsel 3 — Sesle kaydet
+---------------------------------------------------------------
+TR başlık: "Yazmak istemiyor musun? Söyle, yeter."
+EN headline: "Just say it."
+Prompt:
+Vertical 9:16 app store screenshot, warm off-white background, headline
+"Just say it." Below it, a soft speech bubble in light sage #D5E4D2 with the
+quote "I put the spare key in the inside pocket of my black coat." The phone
+shows the "Remember something" screen with a light green "Listening…" panel
+and the Item and Where-is-it fields filled in. A simple outline microphone
+icon in sage green. Calm and friendly, no people.
+Göstereceğin gerçek ekran: Kaydet ekranı, "Söyle" ile doldurulmuş alanlar.
+
+---------------------------------------------------------------
+Görsel 4 — Fotoğraf ekle
+---------------------------------------------------------------
+TR başlık: "Kelimeler yetmediğinde bir fotoğraf."
+EN headline: "Add a photo when words aren't enough."
+Prompt:
+Vertical 9:16 app store screenshot, warm off-white background, headline
+"Add a photo when words aren't enough." Phone shows a memory detail screen:
+item title at the top, a soft green rounded box with a location pin and the
+place, and below it a rounded photo of a tidy drawer with a passport inside.
+Small caption chip under the phone: "Location data is removed from photos".
+Minimal, natural daylight photo inside the app, calm tones.
+Göstereceğin gerçek ekran: Fotoğraflı bir kaydın detay ekranı.
+
+---------------------------------------------------------------
+Görsel 5 — İnternetsiz ve gizli
+---------------------------------------------------------------
+TR başlık: "İnternetsiz çalışır. Sadece sen görürsün."
+EN headline: "Works offline. Only you can see it."
+Prompt:
+Vertical 9:16 app store screenshot, warm off-white background, headline
+"Works offline. Only you can see it." Two small sage green outline icons
+above the phone: a cloud with a check mark and a padlock. Phone shows the
+Favorites list with a few memory cards with filled green hearts. Very calm,
+reassuring, minimal, premium.
+Göstereceğin gerçek ekran: Favoriler ekranı.
+
+---------------------------------------------------------------
+Görsel 6 — Koyu mod + iki dil
+---------------------------------------------------------------
+TR başlık: "Koyu mod. Türkçe ve İngilizce."
+EN headline: "Dark mode. English and Turkish."
+Prompt:
+Vertical 9:16 app store screenshot, soft charcoal background #1B1D1B,
+headline in soft off-white #E6E3DC: "Dark mode. English and Turkish." with a
+small pill toggle "English | Türkçe" in desaturated sage green #A8C5A8. Phone
+shows the app home screen in dark mode: charcoal surfaces, off-white text,
+sage green accents. Calm, elegant, not high-contrast black and white.
+Göstereceğin gerçek ekran: Ana sayfa, koyu tema.
+
+---------------------------------------------------------------
+Tanıtım görseli (Feature graphic, 1024x500, ZORUNLU)
+---------------------------------------------------------------
+Prompt:
+Horizontal 1024x500 banner, warm off-white #F6F4EF background. Left side:
+app icon (sage green #4E6B53 location pin with a light center, on a pale
+sage circle) and the text "Where Did I Put It?" in a modern grotesque sans
+serif, near-black, with the tagline "Save it now. Find it later." in sage
+green below. Right side: a softly tilted Android phone showing a search
+result card "Passport — Desk, second drawer" with a green pin. Lots of
+whitespace, minimal, calm, premium, no gradients, no people, no small text
+near the edges (keep important content in the center safe area).
+(Türkçe mağaza için metinleri "Nereye Koydum?" ve "Şimdi kaydet. Sonra bul."
+ yaparak ikinci bir versiyon üretebilirsin.)
+
+
+---------------------------------------------------------------------
+8. GÖNDERMEDEN ÖNCE SON KONTROL LİSTESİ
+---------------------------------------------------------------------
+[ ] AAB imzalı ve versionCode her yüklemede artırılmış
+[ ] Release sürüm GERÇEK AdMob ID'leriyle derlenmiş (CI "AdMob configured" diyor)
+[ ] Gizlilik politikası ve hesap silme sayfaları açılıyor
+[ ] İnceleme için test hesabı çalışıyor ve e-postası doğrulanmış
+[ ] Data safety cevapları AdMob'un güncel beyanıyla uyumlu
+[ ] Ads: "Contains ads" = Yes
+[ ] Content rating tamamlandı, target audience 18+
+[ ] Store listing TR + EN dolduruldu, ekran görüntüleri gerçek arayüzü gösteriyor
+[ ] Kapalı test: 12 kişi, 14 gün tamamlandı
