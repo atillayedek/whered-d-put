@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nereye Koydum?</string>
+    <string name="app_name_display">Nereye koydum?</string>
+
+    <!-- Ortak eylemler -->
+    <string name="action_back">Geri</string>
+    <string name="action_close">Kapat</string>
+    <string name="action_cancel">Vazgeç</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_edit">Düzenle</string>
+    <string name="action_dismiss">Kapat</string>
+    <string name="action_try_again">Tekrar dene</string>
+    <string name="time_just_now">az önce</string>
+
+    <!-- Gezinme -->
+    <string name="nav_home">Ana sayfa</string>
+    <string name="nav_favorites">Favoriler</string>
+    <string name="nav_settings">Ayarlar</string>
+
+    <!-- Karşılama -->
+    <string name="onboarding_tagline">Şimdi kaydet. Sonra bul.</string>
+    <string name="onboarding_write_title">Yaz</string>
+    <string name="onboarding_write_body">Neyi nereye koyduğunu yaz. Birkaç saniye sürer.</string>
+    <string name="onboarding_speak_title">Ya da söyle</string>
+    <string name="onboarding_speak_body">“Pasaportumu çalışma masasının ikinci çekmecesine koydum.”</string>
+    <string name="onboarding_photo_title">Fotoğraf ekle</string>
+    <string name="onboarding_photo_body">Kelimeler yetmediğinde bir fotoğraf işini görür.</string>
+    <string name="onboarding_get_started">Başla</string>
+    <string name="setup_required_title">Henüz bağlı değil</string>
+    <string name="setup_required_message">Bu sürüm bulut hizmetine bağlı değil, bu yüzden hesap ve eşitleme kullanılamıyor. Geliştiriciysen README\'de anlatılan Supabase adresini ve anon anahtarını ekleyip yeniden derle.</string>
+
+    <!-- Giriş -->
+    <string name="auth_email">E-posta</string>
+    <string name="auth_password">Şifre</string>
+    <string name="auth_new_password">Yeni şifre</string>
+    <string name="auth_show_password">Şifreyi göster</string>
+    <string name="auth_hide_password">Şifreyi gizle</string>
+    <string name="auth_email_invalid">Geçerli bir e-posta adresi gir.</string>
+    <string name="auth_password_rule">En az %1$d karakter kullan.</string>
+    <string name="auth_password_too_short">Şifren en az %1$d karakter olmalı.</string>
+    <string name="sign_in_title">Tekrar hoş geldin</string>
+    <string name="sign_in_subtitle">Kaydettiklerini bulmak için giriş yap.</string>
+    <string name="sign_in_action">Giriş yap</string>
+    <string name="sign_in_forgot">Şifreni mi unuttun?</string>
+    <string name="sign_in_new_here">Yeni misin?</string>
+    <string name="sign_in_create_account">Hesap oluştur</string>
+    <string name="sign_in_resend_confirmation">Doğrulama e-postasını tekrar gönder</string>
+    <string name="sign_up_title">Hesabını oluştur</string>
+    <string name="sign_up_subtitle">Kayıtların sadece sana özel kalır.</string>
+    <string name="sign_up_action">Hesap oluştur</string>
+    <string name="sign_up_have_account">Zaten hesabım var</string>
+    <string name="verify_title">Gelen kutunu kontrol et</string>
+    <string name="verify_subtitle">%1$s adresine bir bağlantı gönderdik. Kurulumu tamamlamak için bu telefonda aç.</string>
+    <string name="verify_other_device">Başka bir cihazda mı açtın? Sorun değil, e-postan yine doğrulandı. Geri dön ve giriş yap.</string>
+    <string name="verify_continue">E-postamı doğruladım</string>
+    <string name="verify_resend">E-postayı tekrar gönder</string>
+    <string name="verify_resend_in">%1$d sn sonra tekrar gönder</string>
+    <string name="verify_resent">Yeni bir bağlantı gönderdik.</string>
+    <string name="forgot_title">Şifreni sıfırla</string>
+    <string name="forgot_subtitle">E-postanı gir, yeni şifre belirlemen için sana bir bağlantı gönderelim.</string>
+    <string name="forgot_action">Sıfırlama bağlantısı gönder</string>
+    <string name="forgot_sent">%1$s için bir hesap varsa sıfırlama bağlantısı yolda. Bu telefonda aç.</string>
+    <string name="forgot_back_to_sign_in">Girişe dön</string>
+    <string name="reset_title">Yeni şifre belirle</string>
+    <string name="reset_subtitle">Bir sonraki girişinde bunu kullanacaksın.</string>
+    <string name="reset_action">Şifreyi kaydet</string>
+    <string name="message_email_confirmed">E-postan doğrulandı. Hoş geldin!</string>
+    <string name="message_link_expired">Bu bağlantının süresi dolmuş ya da başka bir cihazda açılmış. Lütfen giriş yap ya da yeni bir bağlantı iste.</string>
+    <string name="message_password_updated">Şifren güncellendi.</string>
+
+    <!-- Hatalar -->
+    <string name="error_network">İnternet bağlantın yok gibi görünüyor. Bağlantını kontrol edip tekrar dene.</string>
+    <string name="error_invalid_credentials">E-posta ya da şifre hatalı.</string>
+    <string name="error_email_not_confirmed">Önce e-postanı doğrula. Gelen kutundaki bağlantıya bak.</string>
+    <string name="error_email_in_use">Bu e-postayla zaten bir hesap var. Giriş yapmayı dene.</string>
+    <string name="error_weak_password">Bu şifre tahmin edilmesi çok kolay. Daha uzun bir şifre dene.</string>
+    <string name="error_same_password">Mevcut şifrenden farklı bir şifre seç.</string>
+    <string name="error_rate_limited">Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.</string>
+    <string name="error_session_expired">Devam etmek için tekrar giriş yap.</string>
+    <string name="error_not_configured">Bu sürüm henüz bulut hizmetine bağlı değil.</string>
+    <string name="error_not_found">Bu kaydı bulamadık.</string>
+    <string name="error_storage">Cihaza kaydederken bir sorun oldu. Lütfen tekrar dene.</string>
+    <string name="error_generic">Bir şeyler ters gitti. Lütfen tekrar dene.</string>
+
+    <!-- Ana sayfa -->
+    <string name="home_title">Nereye koydum?</string>
+    <string name="home_search_hint">Kayıtlarında ara…</string>
+    <string name="home_search_clear">Aramayı temizle</string>
+    <string name="home_remember_something">Bir şey kaydet</string>
+    <string name="home_recent">Son kayıtlar</string>
+    <string name="home_empty_title">Henüz bir şey yok</string>
+    <string name="home_empty_message">Bir şeyi nereye koyduğunu kaydet, sonra bulmana yardım edelim.</string>
+    <string name="home_no_results_title">“%1$s” ile eşleşen bir şey yok</string>
+    <string name="home_no_results_message">Başka bir kelime dene ya da yeri ara.</string>
+    <plurals name="home_results_count">
+        <item quantity="one">%1$d kayıt</item>
+        <item quantity="other">%1$d kayıt</item>
+    </plurals>
+
+    <!-- Eşitleme -->
+    <string name="sync_failed_title">Eşitlenemedi</string>
+    <string name="sync_failed_message">Kayıtların bu cihazda duruyor. İnternete bağlanınca tekrar deneyeceğiz.</string>
+    <string name="sync_item_pending">Bu cihaza kaydedildi. İnternete bağlanınca eşitlenecek.</string>
+    <string name="sync_item_failed">Eşitlenemedi. Kaydın bu cihazda duruyor. İnternete bağlanınca tekrar deneyeceğiz.</string>
+
+    <!-- Kaydet -->
+    <string name="remember_title">Bir şey kaydet</string>
+    <string name="remember_edit_title">Kaydı düzenle</string>
+    <string name="remember_prompt">Neyi hatırlamak istiyorsun?</string>
+    <string name="remember_speak">Söyle</string>
+    <string name="remember_add_photo">Fotoğraf ekle</string>
+    <string name="remember_change_photo">Fotoğrafı değiştir</string>
+    <string name="remember_remove_photo">Fotoğrafı kaldır</string>
+    <string name="remember_item_label">Eşya</string>
+    <string name="remember_item_hint">Pasaport</string>
+    <string name="remember_item_required">Bu ne? Kısa bir ad yaz.</string>
+    <string name="remember_location_label">Nerede?</string>
+    <string name="remember_location_hint">Çalışma masasının ikinci çekmecesi</string>
+    <string name="remember_location_required">Nereye koydun?</string>
+    <string name="remember_more_details">Kategori ve not</string>
+    <string name="remember_fewer_details">Kategori ve notu gizle</string>
+    <string name="remember_category_label">Kategori</string>
+    <string name="remember_note_label">Not</string>
+    <string name="remember_note_hint">Hatırlamaya değer başka bir şey</string>
+    <string name="remember_save">Bunu hatırla</string>
+    <string name="remember_save_changes">Değişiklikleri kaydet</string>
+    <string name="remember_saved">Kaydedildi. İhtiyacın olduğunda burada bulacaksın.</string>
+    <string name="remember_updated">Değişiklikler kaydedildi.</string>
+    <string name="category_documents">Belgeler</string>
+    <string name="category_keys">Anahtarlar</string>
+    <string name="category_electronics">Elektronik</string>
+    <string name="category_clothes">Giysiler</string>
+    <string name="category_tools">Aletler</string>
+    <string name="category_other">Diğer</string>
+    <string name="category_new">Yeni kategori</string>
+    <string name="category_new_title">Yeni kategori</string>
+    <string name="category_name_label">Ad</string>
+    <string name="category_create">Oluştur</string>
+    <string name="category_create_failed">Bu kategori oluşturulamadı. Daha kısa bir ad dene.</string>
+    <string name="photo_unsupported">Bu fotoğraf kullanılamadı. Başka bir tane dene.</string>
+    <string name="photo_too_large">Bu fotoğraf çok büyük. Başka bir tane dene.</string>
+    <string name="speech_listening">Dinliyorum…</string>
+    <string name="speech_listening_hint">Neyi nereye koyduğunu söyle.</string>
+    <string name="speech_done">Tamam</string>
+    <string name="speech_heard">Duyduğum: “%1$s”</string>
+    <string name="speech_check">Aşağıdaki alanları doldurduk. Doğru göründüğünü kontrol et.</string>
+    <string name="speech_no_match">Anlayamadım. Tekrar dene ya da yaz.</string>
+    <string name="speech_permission_denied">Mikrofon izni kapalı. Yine de yazarak ekleyebilirsin.</string>
+    <string name="speech_unavailable">Sesli giriş şu an kullanılamıyor. Yazarak ekleyebilirsin.</string>
+
+    <!-- Detay -->
+    <string name="detail_note">Not</string>
+    <string name="detail_saved">%1$s kaydedildi</string>
+    <string name="detail_updated">%1$s düzenlendi</string>
+    <string name="detail_photo_pending">Fotoğraf internete bağlanınca görünecek.</string>
+    <string name="detail_delete_title">Bu kayıt silinsin mi?</string>
+    <string name="detail_delete_message">“%1$s” kayıtlarından kaldırılacak.</string>
+    <string name="detail_deleted">Kayıt silindi.</string>
+    <string name="detail_not_found_title">Bu kayıt artık yok</string>
+    <string name="detail_not_found_message">Başka bir cihazda silinmiş olabilir.</string>
+
+    <!-- Favoriler -->
+    <string name="favorites_title">Favoriler</string>
+    <string name="favorites_empty_title">Henüz favori yok</string>
+    <string name="favorites_empty_message">Bir kaydı yakında tutmak için kalbe dokun.</string>
+
+    <!-- Ayarlar -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_account">Hesap</string>
+    <string name="settings_email">E-posta</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_language">Dil</string>
+    <string name="theme_system">Sistem</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+    <string name="settings_privacy_section">Gizlilik ve hesap</string>
+    <string name="settings_privacy">Gizlilik</string>
+    <string name="settings_privacy_subtitle">Kayıtların nasıl saklanıyor ve korunuyor</string>
+    <string name="settings_ad_privacy">Reklam gizlilik tercihleri</string>
+    <string name="settings_ad_privacy_subtitle">Reklamların verini nasıl kullandığını değiştir</string>
+    <string name="settings_sign_out">Çıkış yap</string>
+    <string name="settings_delete_account">Hesabı sil</string>
+    <string name="settings_version">Sürüm %1$s</string>
+    <string name="sign_out_title">Çıkış yapılsın mı?</string>
+    <string name="sign_out_message">Kayıtların hesabında güvende kalır. İstediğin zaman tekrar giriş yapıp görebilirsin.</string>
+    <plurals name="sign_out_unsynced_message">
+        <item quantity="one">%1$d kayıt henüz eşitlenmedi. Şimdi çıkış yaparsan bu cihazdan silinecek ve geri getirilemeyecek.</item>
+        <item quantity="other">%1$d kayıt henüz eşitlenmedi. Şimdi çıkış yaparsan bu cihazdan silinecek ve geri getirilemeyecek.</item>
+    </plurals>
+    <string name="delete_account_title">Hesabın silinsin mi?</string>
+    <string name="delete_account_message">Hesabın, tüm kayıtların ve fotoğrafların bu cihazdan ve buluttan kalıcı olarak silinir. Bu işlem geri alınamaz.</string>
+    <string name="delete_account_working">Siliniyor…</string>
+    <string name="delete_account_offline">Hesabını silmek için internete bağlı olmalısın. Hiçbir şey silinmedi.</string>
+    <string name="delete_account_failed">Hesabın silinemedi. Hiçbir şey silinmedi. Lütfen tekrar dene.</string>
+
+    <!-- Gizlilik -->
+    <string name="privacy_intro">Kayıtların sana özel. Uygulamanın neyi sakladığı ve kimin görebildiği burada.</string>
+    <string name="privacy_what_title">Neleri saklıyoruz</string>
+    <string name="privacy_what_body">E-posta adresin ve her kayıt için: eşya, nerede olduğu, isteğe bağlı not, kategori ve fotoğraf, favori olup olmadığı, ne zaman kaydedildiği ya da değiştirildiği.</string>
+    <string name="privacy_where_title">Nerede saklanıyor</string>
+    <string name="privacy_where_body">Uygulama internetsiz de çalışsın diye bu telefonda; telefon değiştirsen de kaybolmasın diye bulut veritabanındaki özel hesabında. Veriler aktarım sırasında şifrelenir.</string>
+    <string name="privacy_who_title">Kim görebilir</string>
+    <string name="privacy_who_body">Sadece sen. Veritabanındaki erişim kuralları kayıtlarını yalnızca senin hesabının okumasına ya da değiştirmesine izin verir. Kayıtlarını satmayız ve analiz aracı kullanmayız. Kayıtların asla reklamcılarla paylaşılmaz.</string>
+    <string name="privacy_photos_title">Fotoğraflar</string>
+    <string name="privacy_photos_body">Seçtiğin fotoğraflar küçültülür; GPS konumu ve kamera bilgisi gibi gizli bilgileri kaydedilmeden ya da yüklenmeden önce silinir.</string>
+    <string name="privacy_mic_title">Mikrofon</string>
+    <string name="privacy_mic_body">Mikrofon sadece Söyle\'ye dokunduğunda, telefonunun ses tanıma hizmeti üzerinden kullanılır. Bu uygulama ses kaydı saklamaz.</string>
+    <string name="privacy_ads_title">Reklamlar</string>
+    <string name="privacy_ads_body">Uygulama ücretsiz ve günde en fazla üç tam ekran reklam gösterir; sadece bir işi bitirdiğinde, asla arama yaparken ya da yazarken değil. Reklamlar Google AdMob tarafından sağlanır; reklam seçmek için cihazının reklam kimliğini ve yaklaşık konumunu kullanabilir. Yasanın gerektirdiği yerlerde önce iznin istenir ve tercihini Ayarlar › Reklam gizlilik tercihleri\'nden değiştirebilirsin. Kayıtların ve fotoğrafların reklam için asla Google\'a gönderilmez.</string>
+    <string name="privacy_delete_title">Verilerini silmek</string>
+    <string name="privacy_delete_body">Bir kaydı istediğin an silebilirsin. Ayarlar › Hesabı sil, hesabını, tüm kayıtlarını ve fotoğraflarını kalıcı olarak kaldırır.</string>
+
+    <!-- Erişilebilirlik -->
+    <string name="a11y_memory_card">%1$s. Konum: %2$s. %3$s</string>
+    <string name="a11y_add_favorite">Favorilere ekle</string>
+    <string name="a11y_remove_favorite">Favorilerden çıkar</string>
+    <string name="a11y_item_photo">Eşyanın fotoğrafı</string>
+    <string name="a11y_location">Konum</string>
+</resources>

@@ -127,6 +127,12 @@
     <string name="remember_save_changes">Save changes</string>
     <string name="remember_saved">Saved. You\'ll find it here whenever you need it.</string>
     <string name="remember_updated">Changes saved.</string>
+    <string name="category_documents">Documents</string>
+    <string name="category_keys">Keys</string>
+    <string name="category_electronics">Electronics</string>
+    <string name="category_clothes">Clothes</string>
+    <string name="category_tools">Tools</string>
+    <string name="category_other">Other</string>
     <string name="category_new">New category</string>
     <string name="category_new_title">New category</string>
     <string name="category_name_label">Name</string>
@@ -164,6 +170,7 @@
     <string name="settings_account">Account</string>
     <string name="settings_email">Email</string>
     <string name="settings_theme">Theme</string>
+    <string name="settings_language">Language</string>
     <string name="theme_system">System</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>

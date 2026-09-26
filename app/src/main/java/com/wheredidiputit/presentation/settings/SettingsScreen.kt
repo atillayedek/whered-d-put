@@ -52,6 +52,7 @@ import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.domain.model.AppError
 import com.wheredidiputit.domain.model.ThemeMode
 import com.wheredidiputit.presentation.common.AppSnackbarHost
+import com.wheredidiputit.presentation.common.LanguageSelector
 import com.wheredidiputit.presentation.common.LocalAdsController
 import com.wheredidiputit.presentation.common.LocalSnackbarHostState
 import com.wheredidiputit.presentation.common.SectionLabel
@@ -108,6 +109,10 @@ fun SettingsScreen(
             Spacer(Modifier.padding(top = WdipiSpacing.sm))
             SectionLabel(stringResource(R.string.settings_theme))
             ThemeSelector(selected = state.themeMode, onSelect = viewModel::setTheme)
+
+            Spacer(Modifier.padding(top = WdipiSpacing.sm))
+            SectionLabel(stringResource(R.string.settings_language))
+            LanguageSelector()
 
             Spacer(Modifier.padding(top = WdipiSpacing.sm))
             SectionLabel(stringResource(R.string.settings_privacy_section))

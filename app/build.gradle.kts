@@ -127,6 +127,8 @@ ksp {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    // Per-app language (English / Türkçe) on every supported Android version.
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

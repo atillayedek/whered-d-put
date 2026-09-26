@@ -60,6 +60,7 @@ import com.wheredidiputit.core.util.rememberHaptics
 import com.wheredidiputit.domain.model.Item
 import com.wheredidiputit.domain.model.SyncState
 import com.wheredidiputit.presentation.common.AppSnackbarHost
+import com.wheredidiputit.presentation.common.categoryLabel
 import java.io.File
 
 @Composable
@@ -234,7 +235,7 @@ private fun DetailContent(item: Item, modifier: Modifier = Modifier) {
 
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             item.category?.let {
-                Text(it.name, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(categoryLabel(it), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Text(
                 stringResource(R.string.detail_saved, relativeTime(item.createdAt)),

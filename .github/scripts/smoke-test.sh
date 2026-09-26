@@ -59,6 +59,16 @@ run_flow() {
 run_flow no
 run_flow yes
 
+# Switch the app to Turkish from the onboarding screen, as a person would.
+adb shell pm clear "$PKG" > /dev/null
+adb shell cmd uimode night no
+adb shell am start -W -n "$PKG/com.wheredidiputit.MainActivity" > /dev/null
+sleep 2
+tap_text "Türkçe"
+shot "05-onboarding-tr"
+tap_text "Başla"
+shot "06-sign-in-tr"
+
 adb logcat -d > "$OUT/logcat.txt"
 if grep -E "FATAL EXCEPTION|ANR in $PKG" "$OUT/logcat.txt"; then
   echo "::error::The app crashed or froze during the smoke test"

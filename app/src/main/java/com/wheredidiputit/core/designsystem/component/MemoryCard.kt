@@ -40,6 +40,7 @@ import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.core.util.relativeTime
 import com.wheredidiputit.core.util.rememberHaptics
 import com.wheredidiputit.domain.model.Item
+import com.wheredidiputit.presentation.common.categoryLabel
 import java.io.File
 
 /**
@@ -54,7 +55,7 @@ fun MemoryCard(
     modifier: Modifier = Modifier,
 ) {
     val time = relativeTime(item.createdAt)
-    val meta = listOfNotNull(item.category?.name, time).joinToString(" · ")
+    val meta = listOfNotNull(item.category?.let { categoryLabel(it) }, time).joinToString(" · ")
     val cardDescription = stringResource(R.string.a11y_memory_card, item.title, item.location, meta)
 
     Surface(

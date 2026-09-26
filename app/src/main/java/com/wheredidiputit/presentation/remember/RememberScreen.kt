@@ -84,6 +84,7 @@ import com.wheredidiputit.core.util.rememberHaptics
 import com.wheredidiputit.domain.model.Category
 import com.wheredidiputit.domain.model.ItemLimits
 import com.wheredidiputit.presentation.common.AppSnackbarHost
+import com.wheredidiputit.presentation.common.categoryLabel
 import com.wheredidiputit.presentation.common.LocalSnackbarHostState
 import java.io.File
 import kotlinx.coroutines.launch
@@ -468,7 +469,7 @@ private fun CategoryChip(category: Category, selected: Boolean, onClick: () -> U
     FilterChip(
         selected = selected,
         onClick = onClick,
-        label = { Text(category.name) },
+        label = { Text(categoryLabel(category)) },
         modifier = Modifier.heightIn(min = WdipiSpacing.minTouchTarget),
         colors = FilterChipDefaults.filterChipColors(
             selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,

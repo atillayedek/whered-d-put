@@ -36,6 +36,7 @@ import com.wheredidiputit.R
 import com.wheredidiputit.core.designsystem.component.EmptyState
 import com.wheredidiputit.core.designsystem.component.PrimaryButton
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
+import com.wheredidiputit.presentation.common.LanguageSelector
 
 @Composable
 fun OnboardingScreen(onGetStarted: () -> Unit) {
@@ -51,7 +52,7 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(WdipiSpacing.xl),
         ) {
-            Spacer(Modifier.height(WdipiSpacing.xxl))
+            LanguageSelector()
             Box(
                 modifier = Modifier
                     .size(72.dp)
