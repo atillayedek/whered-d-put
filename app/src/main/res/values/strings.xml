@@ -230,7 +230,7 @@
     <!-- Privacy -->
     <string name="privacy_intro">Your memories are personal. Here is exactly what the app keeps and who can see it.</string>
     <string name="privacy_what_title">What we store</string>
-    <string name="privacy_what_body">Your email address, and for each memory: the item, where it is, an optional note, category and photo, whether it\'s a favorite, and when it was saved or changed.</string>
+    <string name="privacy_what_body">Your email address, and for each memory: the item, where it is, an optional note, category and photo, whether it\'s a favorite, and when it was saved or changed. If you buy Premium: the Google Play order number, price and date.</string>
     <string name="privacy_where_title">Where it\'s stored</string>
     <string name="privacy_where_body">On this phone, so the app works offline, and in your private account in our cloud database, so nothing is lost if you change phones. Data is encrypted in transit.</string>
     <string name="privacy_who_title">Who can see it</string>

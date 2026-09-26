@@ -166,6 +166,28 @@ with the tested debug APK after every green build of the default branch. A
 cached debug key keeps the signature stable so new betas install over old ones.
 Set `AUTH_WEB_URL` to override the website address the app uses for email links.
 
+### Admin panel (`/admin`)
+
+A hidden page on the website (not linked anywhere, `noindex`, strict CSP,
+Supabase JS served from `website/admin/vendor/`). Sign in with a Supabase Auth
+account that is listed in `public.admins`:
+
+```sql
+insert into public.admins (user_id) select id from auth.users where email = '<admin email>';
+```
+
+- **Overview:** users, active users, Premium, buyers, gross/estimated net
+  revenue (Google's 15% subscription fee), memories, users at the free limit,
+  30-day charts. Only counts, never the content of anyone's memories.
+- **Users / Purchases:** searchable, paged tables.
+- **Email:** announcement emails through Resend (Edge Function `admin-mail`),
+  to all / Premium / free users with a confirmed email who haven't
+  unsubscribed; test send to yourself; send history. Every email has an
+  unsubscribe link (`/unsubscribe?t=…`). The Resend key lives in Supabase
+  Vault (`resend_api_key`) or the `RESEND_API_KEY` function secret.
+- Purchase figures come from orders the app reports (`public.purchases`);
+  Play Console → Earnings is the authoritative source.
+
 ## Release & Google Play
 
 - `applicationId` `com.wheredidiputit.app`, `versionCode` / `versionName` in

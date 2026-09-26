@@ -230,7 +230,7 @@
     <!-- Gizlilik -->
     <string name="privacy_intro">Kayıtların sana özel. Uygulamanın neyi sakladığı ve kimin görebildiği burada.</string>
     <string name="privacy_what_title">Neleri saklıyoruz</string>
-    <string name="privacy_what_body">E-posta adresin ve her kayıt için: eşya, nerede olduğu, isteğe bağlı not, kategori ve fotoğraf, favori olup olmadığı, ne zaman kaydedildiği ya da değiştirildiği.</string>
+    <string name="privacy_what_body">E-posta adresin ve her kayıt için: eşya, nerede olduğu, isteğe bağlı not, kategori ve fotoğraf, favori olup olmadığı, ne zaman kaydedildiği ya da değiştirildiği. Premium alırsan: Google Play sipariş numarası, fiyat ve tarih.</string>
     <string name="privacy_where_title">Nerede saklanıyor</string>
     <string name="privacy_where_body">Uygulama internetsiz de çalışsın diye bu telefonda; telefon değiştirsen de kaybolmasın diye bulut veritabanındaki özel hesabında. Veriler aktarım sırasında şifrelenir.</string>
     <string name="privacy_who_title">Kim görebilir</string>

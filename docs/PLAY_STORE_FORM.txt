@@ -144,13 +144,21 @@ Declarations ........... Developer Program Policies: ✔
         Collected: Yes | Shared: No
         Processed ephemerally: No
         Required or optional: Required (users can't turn off)
-        Purposes: App functionality, Account management
+        Purposes: App functionality, Account management, Developer communications
+                  (duyuru e-postaları; her e-postada abonelikten çık linki var)
 
     [x] Other info  (eşya adı, konum metni, not, kategori)
         Collected: Yes | Shared: No
         Processed ephemerally: No
         Required: Required
         Purposes: App functionality
+
+  FINANCIAL INFO
+    [x] Purchase history   (Premium sipariş no, fiyat, tarih — ödeme Google Play'de)
+        Collected: Yes | Shared: No
+        Processed ephemerally: No
+        Required: Required
+        Purposes: App functionality, Analytics
 
   PHOTOS AND VIDEOS
     [x] Photos
@@ -189,8 +197,8 @@ Declarations ........... Developer Program Policies: ✔
 
   İŞARETLENMEYECEKLER:
     Name, Address, Phone, Race, Political, Religious, Sexual orientation,
-    Financial info (hepsi — Premium ödemesini Google Play alır; uygulama ve
-    sunucumuz ödeme ya da satın alma bilgisi toplamaz), Health and fitness, Messages (hepsi),
+    Financial info → sadece "Purchase history" işaretli; kart/ödeme bilgisi,
+    kredi puanı vb. İŞARETLEME (ödemeyi Google Play alır), Health and fitness, Messages (hepsi),
     Videos, Audio (Voice or sound recordings — ses kaydı saklanmaz; konuşma
     telefonun kendi ses tanıma servisiyle yazıya çevrilir, uygulama sadece
     metni alır), Music, Files and docs, Calendar, Contacts,

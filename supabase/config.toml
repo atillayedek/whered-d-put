@@ -16,3 +16,7 @@ double_confirm_changes = true
 [functions.delete-account]
 # The gateway rejects requests without a valid user JWT before the function runs.
 verify_jwt = true
+
+[functions.admin-mail]
+# Callers must be signed in; the function then checks public.admins.
+verify_jwt = true

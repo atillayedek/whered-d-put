@@ -24,11 +24,19 @@ import com.android.billingclient.api.queryPurchasesAsync
 import com.wheredidiputit.core.config.AppConfig
 import com.wheredidiputit.core.di.ApplicationScope
 import com.wheredidiputit.data.preferences.UserPreferences
+import com.wheredidiputit.data.remote.PurchaseDto
+import com.wheredidiputit.data.remote.SupabaseProvider
+import com.wheredidiputit.data.remote.safeCall
 import com.wheredidiputit.domain.model.PremiumOffer
 import com.wheredidiputit.domain.model.PremiumState
 import com.wheredidiputit.domain.model.PurchaseOutcome
 import com.wheredidiputit.domain.repository.PremiumRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.exceptions.RestException
+import io.github.jan.supabase.postgrest.from
+import java.time.Instant
+import java.util.Collections
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -50,11 +58,16 @@ import kotlinx.coroutines.sync.withLock
  * the subscription is re-read every time the app comes to the foreground, so
  * a cancelled or expired subscription ends Premium on its own. The last
  * answer is cached so a Premium member sees no ads while offline.
+ *
+ * Each order (first purchase and renewals) is also reported to the backend
+ * once, so the admin panel can count buyers and revenue. Nothing depends on
+ * that report succeeding.
  */
 @Singleton
 class BillingManager @Inject constructor(
     @ApplicationContext context: Context,
     private val preferences: UserPreferences,
+    private val supabase: SupabaseProvider,
     @ApplicationScope private val scope: CoroutineScope,
 ) : PremiumRepository, PurchasesUpdatedListener {
 
@@ -75,6 +88,8 @@ class BillingManager @Inject constructor(
 
     @Volatile private var productDetails: ProductDetails? = null
     @Volatile private var offerToken: String? = null
+    @Volatile private var recurringPrice: ProductDetails.PricingPhase? = null
+    private val reportedOrders: MutableSet<String> = Collections.synchronizedSet(mutableSetOf())
 
     init {
         scope.launch {
@@ -189,6 +204,7 @@ class BillingManager @Inject constructor(
 
         productDetails = details
         offerToken = offer?.offerToken
+        recurringPrice = recurring
         _state.update {
             it.copy(
                 storeAvailable = offer != null,
@@ -224,5 +240,37 @@ class BillingManager @Inject constructor(
         val isPremium = active.isNotEmpty() || (!replaceAll && _state.value.isPremium)
         preferences.setPremiumCached(isPremium)
         _state.update { it.copy(isPremium = isPremium, isPending = pending && !isPremium) }
+
+        reportOrders(active)
+    }
+
+    /** Best effort; an order that couldn't be reported is tried again on the next refresh. */
+    private suspend fun reportOrders(purchases: List<Purchase>) {
+        val client = supabase.client ?: return
+        if (client.auth.currentSessionOrNull() == null) return
+        val price = recurringPrice ?: return
+        for (purchase in purchases) {
+            val orderId = purchase.orderId ?: continue
+            if (orderId in reportedOrders) continue
+            val dto = PurchaseDto(
+                orderId = orderId,
+                purchaseToken = purchase.purchaseToken,
+                productId = AppConfig.PREMIUM_PRODUCT_ID,
+                priceMicros = price.priceAmountMicros,
+                currency = price.priceCurrencyCode,
+                purchasedAt = Instant.ofEpochMilli(purchase.purchaseTime).toString(),
+                autoRenewing = purchase.isAutoRenewing,
+            )
+            safeCall { client.from(TABLE_PURCHASES).insert(dto) }
+                .onSuccess { reportedOrders += orderId }
+                .onFailure { error ->
+                    // 409: this order is already recorded.
+                    if (error is RestException && error.statusCode == 409) reportedOrders += orderId
+                }
+        }
+    }
+
+    private companion object {
+        const val TABLE_PURCHASES = "purchases"
     }
 }
