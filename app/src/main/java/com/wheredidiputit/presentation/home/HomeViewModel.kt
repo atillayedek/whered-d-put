@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.Item
 import com.wheredidiputit.domain.repository.ItemRepository
+import com.wheredidiputit.domain.repository.PremiumRepository
 import com.wheredidiputit.domain.repository.SyncController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -29,8 +31,17 @@ data class HomeUiState(
     val activeQuery: String = "",
     val items: List<Item> = emptyList(),
     val failedSyncCount: Int = 0,
+    /** Memories that count towards the free plan's limit. */
+    val itemCount: Int = 0,
+    val isPremium: Boolean = false,
 ) {
     val isSearching: Boolean get() = activeQuery.isNotEmpty()
+
+    /** A new memory needs Premium or a deleted one first. */
+    val limitReached: Boolean get() = !isPremium && itemCount >= FreePlan.ITEM_LIMIT
+
+    /** Tell free users where they stand once they're close to the limit. */
+    val showPlanNotice: Boolean get() = !isPremium && !isSearching && itemCount >= FreePlan.ITEM_LIMIT - 1
     val isEmptyLibrary: Boolean get() = !isLoading && !isSearching && items.isEmpty()
 }
 
@@ -39,6 +50,7 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     private val syncController: SyncController,
+    premiumRepository: PremiumRepository,
 ) : ViewModel() {
 
     /** Held as Compose state so typing never lags or jumps the cursor. */
@@ -51,8 +63,17 @@ class HomeViewModel @Inject constructor(
             .debounce { if (it.isEmpty()) 0L else SEARCH_DEBOUNCE_MS }
             .flatMapLatest { q -> itemRepository.search(q).map { q to it } },
         itemRepository.observeFailedSyncCount(),
-    ) { (activeQuery, items), failed ->
-        HomeUiState(isLoading = false, activeQuery = activeQuery, items = items, failedSyncCount = failed)
+        itemRepository.observeActiveCount(),
+        premiumRepository.state,
+    ) { (activeQuery, items), failed, count, premium ->
+        HomeUiState(
+            isLoading = false,
+            activeQuery = activeQuery,
+            items = items,
+            failedSyncCount = failed,
+            itemCount = count,
+            isPremium = premium.isPremium,
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     fun onQueryChange(value: String) {

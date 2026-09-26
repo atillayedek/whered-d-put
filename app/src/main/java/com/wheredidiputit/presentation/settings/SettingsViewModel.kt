@@ -10,6 +10,7 @@ import com.wheredidiputit.domain.model.ThemeMode
 import com.wheredidiputit.domain.repository.AccountRepository
 import com.wheredidiputit.domain.repository.AuthRepository
 import com.wheredidiputit.domain.repository.ItemRepository
+import com.wheredidiputit.domain.repository.PremiumRepository
 import com.wheredidiputit.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -35,6 +36,9 @@ data class SettingsUiState(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val dialog: SettingsDialog? = null,
     val isWorking: Boolean = false,
+    val isPremium: Boolean = false,
+    /** Memories that count towards the free plan's limit. */
+    val itemCount: Int = 0,
 ) {
     val versionLabel: String = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 }
@@ -45,12 +49,24 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val accountRepository: AccountRepository,
     private val itemRepository: ItemRepository,
+    premiumRepository: PremiumRepository,
 ) : ViewModel() {
 
     private val local = MutableStateFlow(SettingsUiState())
 
-    val uiState: StateFlow<SettingsUiState> = combine(local, authRepository.authState, settingsRepository.themeMode) { state, auth, theme ->
-        state.copy(email = (auth as? AuthState.SignedIn)?.email.orEmpty(), themeMode = theme)
+    val uiState: StateFlow<SettingsUiState> = combine(
+        local,
+        authRepository.authState,
+        settingsRepository.themeMode,
+        premiumRepository.state,
+        itemRepository.observeActiveCount(),
+    ) { state, auth, theme, premium, count ->
+        state.copy(
+            email = (auth as? AuthState.SignedIn)?.email.orEmpty(),
+            themeMode = theme,
+            isPremium = premium.isPremium,
+            itemCount = count,
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState())
 
     private val errorChannel = Channel<AppError>(Channel.BUFFERED)

@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -50,6 +51,7 @@ import com.wheredidiputit.core.designsystem.component.ConfirmDialog
 import com.wheredidiputit.core.designsystem.theme.WdipiShapes
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.domain.model.AppError
+import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.ThemeMode
 import com.wheredidiputit.presentation.common.AppSnackbarHost
 import com.wheredidiputit.presentation.common.LanguageSelector
@@ -61,6 +63,7 @@ import com.wheredidiputit.presentation.common.TopLevelScreenInsets
 @Composable
 fun SettingsScreen(
     onOpenPrivacy: () -> Unit,
+    onOpenPremium: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -103,6 +106,26 @@ fun SettingsScreen(
                     icon = Icons.Outlined.Mail,
                     title = stringResource(R.string.settings_email),
                     subtitle = state.email,
+                )
+            }
+
+            Spacer(Modifier.padding(top = WdipiSpacing.sm))
+            SectionLabel(stringResource(R.string.settings_plan))
+            SettingsGroup {
+                SettingsRow(
+                    icon = Icons.Outlined.WorkspacePremium,
+                    title = stringResource(if (state.isPremium) R.string.settings_plan_premium else R.string.settings_plan_free),
+                    subtitle = if (state.isPremium) {
+                        stringResource(R.string.settings_plan_premium_subtitle)
+                    } else {
+                        stringResource(
+                            R.string.settings_plan_free_subtitle,
+                            state.itemCount.coerceAtMost(FreePlan.ITEM_LIMIT),
+                            FreePlan.ITEM_LIMIT,
+                        )
+                    },
+                    onClick = onOpenPremium,
+                    showChevron = true,
                 )
             }
 

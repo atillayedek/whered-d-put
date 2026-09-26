@@ -21,5 +21,6 @@ fun AppError.messageRes(): Int = when (this) {
     AppError.PHOTO_TOO_LARGE -> R.string.photo_too_large
     AppError.NOT_FOUND -> R.string.error_not_found
     AppError.STORAGE -> R.string.error_storage
+    AppError.ITEM_LIMIT_REACHED -> R.string.error_item_limit
     AppError.UNKNOWN -> R.string.error_generic
 }

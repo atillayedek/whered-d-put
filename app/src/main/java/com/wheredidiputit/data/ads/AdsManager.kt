@@ -19,6 +19,7 @@ import com.wheredidiputit.BuildConfig
 import com.wheredidiputit.core.di.ApplicationScope
 import com.wheredidiputit.data.preferences.UserPreferences
 import com.wheredidiputit.domain.ads.AdFrequencyPolicy
+import com.wheredidiputit.domain.repository.PremiumRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.ZoneId
 import java.util.concurrent.atomic.AtomicBoolean
@@ -40,13 +41,17 @@ import kotlinx.coroutines.withContext
  * Platform before any ad is requested, as required in the EEA and UK.
  *
  * Nothing here ever blocks the UI: if no ad is ready, nothing is shown.
+ * Premium members never see or load ads.
  */
 @Singleton
 class AdsManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val preferences: UserPreferences,
     @ApplicationScope private val scope: CoroutineScope,
+    private val premiumRepository: PremiumRepository,
 ) {
+    private val isPremium: Boolean get() = premiumRepository.state.value.isPremium
+
     private val enabled = BuildConfig.ADS_ENABLED && BuildConfig.ADMOB_INTERSTITIAL_ID.isNotEmpty()
     private val consentInformation: ConsentInformation = UserMessagingPlatform.getConsentInformation(context)
     private val sdkStarted = AtomicBoolean(false)
@@ -88,6 +93,10 @@ class AdsManager @Inject constructor(
      */
     fun onNaturalBreak(activity: Activity) {
         if (!enabled || isShowing) return
+        if (isPremium) {
+            interstitial = null
+            return
+        }
         val ad = freshInterstitial() ?: run {
             preload()
             return
@@ -99,7 +108,7 @@ class AdsManager @Inject constructor(
                 installedAt = installedAt(),
                 zone = ZoneId.systemDefault(),
             )
-            if (!allowed) return@launch
+            if (!allowed || isPremium) return@launch
             // Let the "Saved" confirmation land before the ad appears.
             delay(SHOW_DELAY_MS)
             if (!activity.isInForeground() || isShowing || interstitial !== ad) return@launch
@@ -148,7 +157,7 @@ class AdsManager @Inject constructor(
     }
 
     private fun preload() {
-        if (!enabled || isLoading || freshInterstitial() != null || !consentInformation.canRequestAds()) return
+        if (!enabled || isPremium || isLoading || freshInterstitial() != null || !consentInformation.canRequestAds()) return
         isLoading = true
         InterstitialAd.load(
             context,

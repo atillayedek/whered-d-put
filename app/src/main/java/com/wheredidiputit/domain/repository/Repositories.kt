@@ -30,6 +30,9 @@ interface ItemRepository {
     fun observeItem(id: String): Flow<Item?>
     fun observeFailedSyncCount(): Flow<Int>
 
+    /** Memories that count towards the free plan's limit. */
+    fun observeActiveCount(): Flow<Int>
+
     suspend fun create(draft: ItemDraft): AppResult<String>
     suspend fun update(id: String, draft: ItemDraft): AppResult<Unit>
     suspend fun setFavorite(id: String, favorite: Boolean)

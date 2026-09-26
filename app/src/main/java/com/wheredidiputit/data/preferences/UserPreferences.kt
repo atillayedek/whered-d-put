@@ -73,7 +73,8 @@ class UserPreferences @Inject constructor(
     suspend fun clearAccountData() {
         store.edit { prefs ->
             // Ad frequency is per device, so signing out can't be used to see more ads.
-            val keep = setOf(ONBOARDING_DONE.name, THEME.name, AD_LAST_SHOWN.name, AD_DAY.name, AD_COUNT.name)
+            // Premium belongs to the Google Play account on this device, not to the app account.
+            val keep = setOf(ONBOARDING_DONE.name, THEME.name, AD_LAST_SHOWN.name, AD_DAY.name, AD_COUNT.name, PREMIUM_CACHED.name)
             prefs.asMap().keys.filter { it.name !in keep }.forEach { prefs -= it }
         }
     }
@@ -95,6 +96,13 @@ class UserPreferences @Inject constructor(
         }
     }
 
+    /** Last answer from Google Play, used until Play answers again (offline, cold start). */
+    suspend fun premiumCached(): Boolean = store.data.first()[PREMIUM_CACHED] ?: false
+
+    suspend fun setPremiumCached(premium: Boolean) {
+        store.edit { it[PREMIUM_CACHED] = premium }
+    }
+
     private fun pullKey(userId: String) = stringPreferencesKey("last_pulled_at_$userId")
 
     private companion object {
@@ -106,5 +114,6 @@ class UserPreferences @Inject constructor(
         val AD_LAST_SHOWN = longPreferencesKey("ad_last_shown_at")
         val AD_DAY = stringPreferencesKey("ad_day")
         val AD_COUNT = intPreferencesKey("ad_shown_today")
+        val PREMIUM_CACHED = booleanPreferencesKey("premium_cached")
     }
 }

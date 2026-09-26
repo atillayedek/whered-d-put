@@ -15,3 +15,4 @@ import kotlinx.serialization.Serializable
 @Serializable data class RememberRoute(val itemId: String? = null)
 @Serializable data class DetailRoute(val itemId: String)
 @Serializable data object PrivacyRoute
+@Serializable data object PremiumRoute

@@ -195,6 +195,38 @@
     <string name="delete_account_offline">You need to be online to delete your account. Nothing was deleted.</string>
     <string name="delete_account_failed">Couldn\'t delete your account. Nothing was deleted. Please try again.</string>
 
+    <!-- Premium -->
+    <string name="premium_title">Premium</string>
+    <string name="premium_headline">Remember everything</string>
+    <string name="premium_intro">The free plan keeps up to %1$d memories. Premium removes the limit and the ads.</string>
+    <string name="premium_limit_message">You\'ve used all %1$d free memories. Go Premium to add more, or delete a memory you no longer need to make room.</string>
+    <string name="premium_benefit_unlimited">Unlimited memories</string>
+    <string name="premium_benefit_no_ads">No ads</string>
+    <string name="premium_usage">Free plan: %1$d of %2$d memories used</string>
+    <string name="premium_price_month">%1$s / month</string>
+    <string name="premium_price_year">%1$s / year</string>
+    <string name="premium_price_week">%1$s / week</string>
+    <string name="premium_subscribe">Go Premium</string>
+    <string name="premium_terms">The subscription renews automatically each period and is charged to your Google Play account. Cancel any time in Google Play › Subscriptions; Premium stays on until the end of the paid period.</string>
+    <string name="premium_delete_instead">Delete a memory instead</string>
+    <string name="premium_store_unavailable">Google Play can\'t be reached right now. Check your connection and that the Play Store is up to date, then try again.</string>
+    <string name="premium_pending">Your payment is waiting for approval in Google Play. Premium turns on by itself once it\'s approved.</string>
+    <string name="premium_failed">The purchase didn\'t go through. You weren\'t charged. Please try again.</string>
+    <string name="premium_welcome">Welcome to Premium. No limits, no ads.</string>
+    <string name="premium_active_title">You\'re Premium</string>
+    <string name="premium_active_message">Unlimited memories and no ads are on. Thank you for supporting the app.</string>
+    <string name="premium_manage">Manage subscription</string>
+    <string name="plan_notice_title">%1$d of %2$d free memories used</string>
+    <string name="plan_notice_almost">One more fits in the free plan. Premium removes the limit.</string>
+    <string name="plan_notice_full">To add a new one, delete a memory or go Premium.</string>
+    <string name="plan_notice_action">See Premium</string>
+    <string name="settings_plan">Plan</string>
+    <string name="settings_plan_free">Free plan</string>
+    <string name="settings_plan_free_subtitle">%1$d of %2$d memories used · See Premium</string>
+    <string name="settings_plan_premium">Premium</string>
+    <string name="settings_plan_premium_subtitle">Unlimited memories, no ads</string>
+    <string name="error_item_limit">The free plan holds up to 5 memories. Delete one or go Premium to add more.</string>
+
     <!-- Privacy -->
     <string name="privacy_intro">Your memories are personal. Here is exactly what the app keeps and who can see it.</string>
     <string name="privacy_what_title">What we store</string>
@@ -208,7 +240,7 @@
     <string name="privacy_mic_title">Microphone</string>
     <string name="privacy_mic_body">The microphone is used only while you tap Speak, through your phone\'s speech recognition service. Recordings are not stored by this app.</string>
     <string name="privacy_ads_title">Ads</string>
-    <string name="privacy_ads_body">The app is free and shows at most three full-screen ads a day, only after you finish something, never while you search or type. Ads are provided by Google AdMob, which may use your device\'s advertising ID and approximate location to choose ads. Where the law requires it, you\'re asked for consent first and can change your choice in Settings › Ad privacy choices. Your memories and photos are never shared with Google for ads.</string>
+    <string name="privacy_ads_body">The app is free and shows at most three full-screen ads a day, only after you finish something, never while you search or type. Ads are provided by Google AdMob, which may use your device\'s advertising ID and approximate location to choose ads. Where the law requires it, you\'re asked for consent first and can change your choice in Settings › Ad privacy choices. Your memories and photos are never shared with Google for ads. Premium members see no ads. Premium is paid through Google Play; the app never sees your payment details.</string>
     <string name="privacy_delete_title">Deleting your data</string>
     <string name="privacy_delete_body">Delete a memory at any time. Settings › Delete account permanently removes your account, every memory and every photo.</string>
 

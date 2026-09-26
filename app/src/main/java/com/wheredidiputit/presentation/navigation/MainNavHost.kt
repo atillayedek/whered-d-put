@@ -39,6 +39,7 @@ import com.wheredidiputit.presentation.common.LocalSnackbarHostState
 import com.wheredidiputit.presentation.detail.DetailScreen
 import com.wheredidiputit.presentation.favorites.FavoritesScreen
 import com.wheredidiputit.presentation.home.HomeScreen
+import com.wheredidiputit.presentation.premium.PremiumScreen
 import com.wheredidiputit.presentation.remember.RememberScreen
 import com.wheredidiputit.presentation.settings.PrivacyScreen
 import com.wheredidiputit.presentation.settings.SettingsScreen
@@ -111,13 +112,17 @@ fun MainNavHost() {
                 HomeScreen(
                     onRemember = { navController.navigate(RememberRoute()) },
                     onOpenItem = { id -> navController.navigate(DetailRoute(id)) },
+                    onOpenPremium = { navController.navigate(PremiumRoute) },
                 )
             }
             composable<FavoritesRoute> {
                 FavoritesScreen(onOpenItem = { id -> navController.navigate(DetailRoute(id)) })
             }
             composable<SettingsRoute> {
-                SettingsScreen(onOpenPrivacy = { navController.navigate(PrivacyRoute) })
+                SettingsScreen(
+                    onOpenPrivacy = { navController.navigate(PrivacyRoute) },
+                    onOpenPremium = { navController.navigate(PremiumRoute) },
+                )
             }
             composable<RememberRoute> {
                 RememberScreen(
@@ -139,6 +144,15 @@ fun MainNavHost() {
                     onDeleted = {
                         navController.popBackStack()
                         announce(R.string.detail_deleted)
+                    },
+                )
+            }
+            composable<PremiumRoute> {
+                PremiumScreen(
+                    onClose = { navController.popBackStack() },
+                    onPurchased = {
+                        navController.popBackStack()
+                        announce(R.string.premium_welcome)
                     },
                 )
             }

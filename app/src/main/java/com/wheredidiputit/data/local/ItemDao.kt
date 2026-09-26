@@ -47,6 +47,13 @@ interface ItemDao {
     @Query("SELECT COUNT(*) FROM items WHERE user_id = :userId AND sync_state != 'SYNCED'")
     suspend fun countUnsynced(userId: String): Int
 
+    /** Memories that count towards the free plan's limit. */
+    @Query("SELECT COUNT(*) FROM items WHERE user_id = :userId AND deleted_at IS NULL")
+    fun observeActiveCount(userId: String): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM items WHERE user_id = :userId AND deleted_at IS NULL")
+    suspend fun countActive(userId: String): Int
+
     @Query("SELECT COUNT(*) FROM items WHERE user_id = :userId AND sync_state = 'FAILED' AND deleted_at IS NULL")
     fun observeFailedCount(userId: String): Flow<Int>
 

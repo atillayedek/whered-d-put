@@ -1,5 +1,6 @@
 package com.wheredidiputit.core.di
 
+import com.wheredidiputit.data.billing.BillingManager
 import com.wheredidiputit.data.image.PhotoRepositoryImpl
 import com.wheredidiputit.data.repository.AccountRepositoryImpl
 import com.wheredidiputit.data.repository.AuthRepositoryImpl
@@ -12,6 +13,7 @@ import com.wheredidiputit.domain.repository.AuthRepository
 import com.wheredidiputit.domain.repository.CategoryRepository
 import com.wheredidiputit.domain.repository.ItemRepository
 import com.wheredidiputit.domain.repository.PhotoRepository
+import com.wheredidiputit.domain.repository.PremiumRepository
 import com.wheredidiputit.domain.repository.SettingsRepository
 import com.wheredidiputit.domain.repository.SyncController
 import dagger.Binds
@@ -29,4 +31,5 @@ abstract class RepositoryModule {
     @Binds abstract fun bindAccountRepository(impl: AccountRepositoryImpl): AccountRepository
     @Binds abstract fun bindPhotoRepository(impl: PhotoRepositoryImpl): PhotoRepository
     @Binds abstract fun bindSyncController(impl: SyncScheduler): SyncController
+    @Binds abstract fun bindPremiumRepository(impl: BillingManager): PremiumRepository
 }

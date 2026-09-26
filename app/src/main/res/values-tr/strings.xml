@@ -195,6 +195,38 @@
     <string name="delete_account_offline">Hesabını silmek için internete bağlı olmalısın. Hiçbir şey silinmedi.</string>
     <string name="delete_account_failed">Hesabın silinemedi. Hiçbir şey silinmedi. Lütfen tekrar dene.</string>
 
+    <!-- Premium -->
+    <string name="premium_title">Premium</string>
+    <string name="premium_headline">Her şeyi hatırla</string>
+    <string name="premium_intro">Ücretsiz planda en fazla %1$d kayıt tutabilirsin. Premium ile sınır da reklam da kalkar.</string>
+    <string name="premium_limit_message">%1$d ücretsiz kaydın hepsini kullandın. Yenisini eklemek için Premium\'a geç ya da artık gerekmeyen bir kaydı silip yer aç.</string>
+    <string name="premium_benefit_unlimited">Sınırsız kayıt</string>
+    <string name="premium_benefit_no_ads">Reklam yok</string>
+    <string name="premium_usage">Ücretsiz plan: %2$d kaydın %1$d tanesi kullanıldı</string>
+    <string name="premium_price_month">Aylık %1$s</string>
+    <string name="premium_price_year">Yıllık %1$s</string>
+    <string name="premium_price_week">Haftalık %1$s</string>
+    <string name="premium_subscribe">Premium\'a geç</string>
+    <string name="premium_terms">Abonelik her dönem otomatik yenilenir ve Google Play hesabından ücretlendirilir. İstediğin zaman Google Play › Abonelikler\'den iptal edebilirsin; iptal etsen de ödediğin dönemin sonuna kadar Premium açık kalır.</string>
+    <string name="premium_delete_instead">Bunun yerine bir kaydı sil</string>
+    <string name="premium_store_unavailable">Google Play\'e şu an ulaşılamıyor. İnternet bağlantını ve Play Store\'un güncel olduğunu kontrol edip tekrar dene.</string>
+    <string name="premium_pending">Ödemen Google Play\'de onay bekliyor. Onaylanınca Premium kendiliğinden açılır.</string>
+    <string name="premium_failed">Satın alma tamamlanamadı. Ücret alınmadı. Lütfen tekrar dene.</string>
+    <string name="premium_welcome">Premium\'a hoş geldin. Sınır yok, reklam yok.</string>
+    <string name="premium_active_title">Premium\'sun</string>
+    <string name="premium_active_message">Sınırsız kayıt ve reklamsız kullanım açık. Uygulamayı desteklediğin için teşekkürler.</string>
+    <string name="premium_manage">Aboneliği yönet</string>
+    <string name="plan_notice_title">%2$d ücretsiz kaydın %1$d tanesi kullanıldı</string>
+    <string name="plan_notice_almost">Ücretsiz plana bir kayıt daha sığar. Premium ile sınır kalkar.</string>
+    <string name="plan_notice_full">Yeni kayıt eklemek için bir kaydı sil ya da Premium\'a geç.</string>
+    <string name="plan_notice_action">Premium\'a bak</string>
+    <string name="settings_plan">Plan</string>
+    <string name="settings_plan_free">Ücretsiz plan</string>
+    <string name="settings_plan_free_subtitle">%2$d kaydın %1$d tanesi kullanıldı · Premium\'a bak</string>
+    <string name="settings_plan_premium">Premium</string>
+    <string name="settings_plan_premium_subtitle">Sınırsız kayıt, reklam yok</string>
+    <string name="error_item_limit">Ücretsiz planda en fazla 5 kayıt var. Yenisini eklemek için birini sil ya da Premium\'a geç.</string>
+
     <!-- Gizlilik -->
     <string name="privacy_intro">Kayıtların sana özel. Uygulamanın neyi sakladığı ve kimin görebildiği burada.</string>
     <string name="privacy_what_title">Neleri saklıyoruz</string>
@@ -208,7 +240,7 @@
     <string name="privacy_mic_title">Mikrofon</string>
     <string name="privacy_mic_body">Mikrofon sadece Söyle\'ye dokunduğunda, telefonunun ses tanıma hizmeti üzerinden kullanılır. Bu uygulama ses kaydı saklamaz.</string>
     <string name="privacy_ads_title">Reklamlar</string>
-    <string name="privacy_ads_body">Uygulama ücretsiz ve günde en fazla üç tam ekran reklam gösterir; sadece bir işi bitirdiğinde, asla arama yaparken ya da yazarken değil. Reklamlar Google AdMob tarafından sağlanır; reklam seçmek için cihazının reklam kimliğini ve yaklaşık konumunu kullanabilir. Yasanın gerektirdiği yerlerde önce iznin istenir ve tercihini Ayarlar › Reklam gizlilik tercihleri\'nden değiştirebilirsin. Kayıtların ve fotoğrafların reklam için asla Google\'a gönderilmez.</string>
+    <string name="privacy_ads_body">Uygulama ücretsiz ve günde en fazla üç tam ekran reklam gösterir; sadece bir işi bitirdiğinde, asla arama yaparken ya da yazarken değil. Reklamlar Google AdMob tarafından sağlanır; reklam seçmek için cihazının reklam kimliğini ve yaklaşık konumunu kullanabilir. Yasanın gerektirdiği yerlerde önce iznin istenir ve tercihini Ayarlar › Reklam gizlilik tercihleri\'nden değiştirebilirsin. Kayıtların ve fotoğrafların reklam için asla Google\'a gönderilmez. Premium üyelere reklam gösterilmez. Premium ödemesi Google Play üzerinden yapılır; uygulama ödeme bilgilerini hiçbir zaman görmez.</string>
     <string name="privacy_delete_title">Verilerini silmek</string>
     <string name="privacy_delete_body">Bir kaydı istediğin an silebilirsin. Ayarlar › Hesabı sil, hesabını, tüm kayıtlarını ve fotoğraflarını kalıcı olarak kaldırır.</string>
 

@@ -172,6 +172,7 @@ dependencies {
 
     implementation(libs.play.services.ads)
     implementation(libs.user.messaging.platform)
+    implementation(libs.play.billing.ktx)
 
     implementation(platform(libs.supabase.bom))
     implementation(libs.supabase.auth)

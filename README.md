@@ -44,6 +44,7 @@ it.
 | Categories | Built-in taxonomy (Documents, Keys, Electronics, Clothes, Tools, Other) + custom categories created inline. |
 | Settings | Email, theme (System/Light/Dark), Privacy, Sign out (warns about unsynced memories), Delete account, app version. |
 | Ads | Google AdMob interstitials at natural pauses only (after saving, after leaving a memory). At most 3 per day, 2 hours apart, none in the first 24 hours after install, never during search or typing. Google UMP consent form where required, "Ad privacy choices" in Settings. |
+| Premium | Free plan holds 5 live memories (deleting one frees a place); at the limit, *Remember* opens the Premium screen. Premium is a Google Play Billing subscription (`wdipi_premium`, base plan `monthly`, priced in Play Console, 34.99 TRY in Turkey) with unlimited memories and no ads. Play is re-queried on every app start/resume, purchases are acknowledged, the last answer is cached for offline use. The limit is enforced in the app, not yet on the server (server-side receipt verification needs a Play Console service account). |
 | Sync | States `SYNCED`, `PENDING_CREATE`, `PENDING_UPDATE`, `PENDING_DELETE`, `FAILED`. Soft delete via `deleted_at`. Local edits win over older server rows. |
 
 ## Architecture

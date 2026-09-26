@@ -44,6 +44,7 @@ import com.wheredidiputit.core.designsystem.component.MemoryCard
 import com.wheredidiputit.core.designsystem.theme.WdipiShapes
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.presentation.common.AppSnackbarHost
+import com.wheredidiputit.presentation.common.PlanNotice
 import com.wheredidiputit.presentation.common.SectionLabel
 import com.wheredidiputit.presentation.common.SyncProblemBanner
 import com.wheredidiputit.presentation.common.TopLevelScreenInsets
@@ -52,9 +53,12 @@ import com.wheredidiputit.presentation.common.TopLevelScreenInsets
 fun HomeScreen(
     onRemember: () -> Unit,
     onOpenItem: (String) -> Unit,
+    onOpenPremium: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    // On the free plan's limit, "Remember" explains the options instead.
+    val onAdd = if (state.limitReached) onOpenPremium else onRemember
 
     Scaffold(
         contentWindowInsets = TopLevelScreenInsets,
@@ -63,7 +67,7 @@ fun HomeScreen(
         floatingActionButton = {
             if (!state.isEmptyLibrary && !state.isLoading) {
                 ExtendedFloatingActionButton(
-                    onClick = onRemember,
+                    onClick = onAdd,
                     text = { Text(stringResource(R.string.home_remember_something)) },
                     icon = { Icon(Icons.Rounded.Add, contentDescription = null) },
                     shape = WdipiShapes.button,
@@ -112,6 +116,15 @@ fun HomeScreen(
                         SyncProblemBanner(onRetry = viewModel::retrySync, modifier = Modifier.animateItem())
                     }
                 }
+                if (state.showPlanNotice) {
+                    item(key = "plan-notice") {
+                        PlanNotice(
+                            itemCount = state.itemCount,
+                            onOpenPremium = onOpenPremium,
+                            modifier = Modifier.animateItem(),
+                        )
+                    }
+                }
                 when {
                     state.isLoading -> Unit
                     state.isEmptyLibrary -> item(key = "empty") {
@@ -120,7 +133,7 @@ fun HomeScreen(
                             title = stringResource(R.string.home_empty_title),
                             message = stringResource(R.string.home_empty_message),
                             actionLabel = stringResource(R.string.home_remember_something),
-                            onAction = onRemember,
+                            onAction = onAdd,
                         )
                     }
                     state.isSearching && state.items.isEmpty() -> item(key = "no-results") {

@@ -43,6 +43,10 @@ advertising ID in your device's Google settings.
 Our infrastructure provider (Supabase) processes the account and memory data
 above solely to operate the service.
 
+## Premium
+
+Premium (unlimited memories, no ads) is a subscription sold and billed by Google Play. Google handles the payment under its own privacy policy; we never receive card or payment details. The app only asks Google Play whether the subscription is active. Premium members are not shown ads.
+
 ## Security
 
 Data is encrypted in transit (HTTPS). Database access rules (Row Level

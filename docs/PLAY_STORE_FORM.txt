@@ -86,7 +86,7 @@ Declarations ........... Developer Program Policies: ✔
       Does the app share the user's current
         physical location with other users? ....... No
       Does the app allow users to purchase
-        digital goods? ............................ No
+        digital goods? ............................ Yes (Premium aboneliği)
       Does the app contain ads? ................... Yes
       Is the app a web browser or search engine? .. No
       Is the app primarily news or educational? ... No
@@ -189,7 +189,8 @@ Declarations ........... Developer Program Policies: ✔
 
   İŞARETLENMEYECEKLER:
     Name, Address, Phone, Race, Political, Religious, Sexual orientation,
-    Financial info (hepsi), Health and fitness, Messages (hepsi),
+    Financial info (hepsi — Premium ödemesini Google Play alır; uygulama ve
+    sunucumuz ödeme ya da satın alma bilgisi toplamaz), Health and fitness, Messages (hepsi),
     Videos, Audio (Voice or sound recordings — ses kaydı saklanmaz; konuşma
     telefonun kendi ses tanıma servisiyle yazıya çevrilir, uygulama sadece
     metni alır), Music, Files and docs, Calendar, Contacts,
@@ -241,7 +242,10 @@ PRIVATE BY DESIGN
 IN YOUR LANGUAGE
 • English and Turkish, light and dark mode.
 
-Free, with a few ads: at most three a day, and never while you search.
+FREE OR PREMIUM
+• Free: up to 5 memories, with a few ads (at most three a day, never while
+  you search). Delete one to make room for a new one.
+• Premium: unlimited memories and no ads, as a monthly subscription.
 
 
 5.2 TÜRKÇE (tr-TR) — "Manage translations → Add your own translations"
@@ -281,7 +285,10 @@ GİZLİLİK ÖNCELİKLİ
 SENİN DİLİNDE
 • Türkçe ve İngilizce, açık ve koyu mod.
 
-Ücretsiz, az reklamlı: günde en fazla üç reklam, arama yaparken asla.
+ÜCRETSİZ YA DA PREMIUM
+• Ücretsiz: en fazla 5 kayıt, az reklam (günde en fazla üç, arama yaparken
+  asla). Yeni kayıt için eskilerden birini silebilirsin.
+• Premium: sınırsız kayıt ve reklamsız kullanım, aylık abonelik.
 
 
 5.3 Grafikler
@@ -326,11 +333,28 @@ First release. Save where you put things by typing, speaking or adding a photo, 
 İlk sürüm. Eşyalarını nereye koyduğunu yazarak, söyleyerek ya da fotoğrafla kaydet, sonra aramayla bul. İnternetsiz çalışır; Türkçe ve İngilizce.
 </tr-TR>
 
-6.4 App signing: "Use Play App Signing" (önerilen). Yüklediğin AAB'yi kendi
+6.4 Premium aboneliği (Monetize → Products → Subscriptions)
+    Önce "Payments profile" (ödeme profili) oluşturulmuş olmalı ve uygulamanın
+    Premium'lu bir AAB'si en az bir test kanalına yüklenmiş olmalı; yoksa
+    abonelik oluşturma ekranı açılmaz.
+    - Product ID ............ wdipi_premium   (koddaki AppConfig ile AYNI olmalı)
+    - Name .................. Premium
+    - Benefits .............. Unlimited memories / No ads
+                              (TR: Sınırsız kayıt / Reklam yok)
+    - Base plan ID .......... monthly         (koddaki AppConfig ile AYNI olmalı)
+    - Type .................. Auto-renewing, Billing period: Monthly
+    - Price ................. Türkiye: 34,99 TRY. Diğer ülkeler için
+                              "Set prices" → Google'ın önerdiği karşılıkları kullan.
+    - Grace period / account hold: varsayılan kalsın.
+    - Base plan'ı "Activate" et.
+    Test: Setup → License testing'e kendi Gmail'ini ekle; test hesabıyla
+    yapılan satın almalar ücretlendirilmez ve birkaç dakikada yenilenir.
+
+6.5 App signing: "Use Play App Signing" (önerilen). Yüklediğin AAB'yi kendi
     upload keystore'unla imzalarsın; Google son imzayı kendisi atar.
     Keystore dosyasını ve şifresini KAYBETME.
 
-6.5 Bilinmesi gerekenler
+6.6 Bilinmesi gerekenler
     - Mikrofon izni (RECORD_AUDIO) sadece "Söyle"ye basınca istenir. Ayrı
       bir izin beyan formu gerekmez.
     - Fotoğraflar Android Photo Picker ile seçilir; READ_MEDIA_IMAGES izni
@@ -468,6 +492,8 @@ near the edges (keep important content in the center safe area).
 [ ] İnceleme için test hesabı çalışıyor ve e-postası doğrulanmış
 [ ] Data safety cevapları AdMob'un güncel beyanıyla uyumlu
 [ ] Ads: "Contains ads" = Yes
+[ ] Premium aboneliği (wdipi_premium / monthly, 34,99 TRY) oluşturuldu ve aktif
+[ ] License testing ile test satın alması yapıldı: 6. kayıt açılıyor, reklam yok
 [ ] Content rating tamamlandı, target audience 18+
 [ ] Store listing TR + EN dolduruldu, ekran görüntüleri gerçek arayüzü gösteriyor
 [ ] Kapalı test: 12 kişi, 14 gün tamamlandı
