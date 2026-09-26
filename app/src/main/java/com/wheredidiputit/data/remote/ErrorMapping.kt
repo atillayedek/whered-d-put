@@ -23,6 +23,7 @@ private fun RestException.restError(): AppError {
         "user_already_exists" in text || "email_exists" in text || "already registered" in text -> AppError.EMAIL_IN_USE
         "same_password" in text -> AppError.SAME_PASSWORD
         "weak_password" in text || "password should" in text -> AppError.WEAK_PASSWORD
+        "over_email_send_rate_limit" in text || "email rate limit" in text -> AppError.EMAIL_RATE_LIMITED
         "rate_limit" in text || statusCode == 429 -> AppError.RATE_LIMITED
         "session_not_found" in text || "jwt expired" in text || statusCode == 401 -> AppError.SESSION_EXPIRED
         statusCode == 404 -> AppError.NOT_FOUND

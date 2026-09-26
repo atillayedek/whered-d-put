@@ -14,6 +14,7 @@ fun AppError.messageRes(): Int = when (this) {
     AppError.WEAK_PASSWORD -> R.string.error_weak_password
     AppError.SAME_PASSWORD -> R.string.error_same_password
     AppError.RATE_LIMITED -> R.string.error_rate_limited
+    AppError.EMAIL_RATE_LIMITED -> R.string.error_email_rate_limited
     AppError.SESSION_EXPIRED -> R.string.error_session_expired
     AppError.NOT_CONFIGURED -> R.string.error_not_configured
     AppError.PHOTO_UNSUPPORTED -> R.string.photo_unsupported

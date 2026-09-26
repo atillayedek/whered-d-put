@@ -77,6 +77,7 @@
     <string name="error_weak_password">That password is too easy to guess. Try a longer one.</string>
     <string name="error_same_password">Choose a password that\'s different from your current one.</string>
     <string name="error_rate_limited">Too many attempts. Please wait a moment and try again.</string>
+    <string name="error_email_rate_limited">We\'ve sent too many emails in a short time. Please try again in about an hour.</string>
     <string name="error_session_expired">Please sign in again to continue.</string>
     <string name="error_not_configured">This build isn\'t connected to its cloud service yet.</string>
     <string name="error_not_found">We couldn\'t find that memory.</string>
