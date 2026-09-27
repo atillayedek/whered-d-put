@@ -18,25 +18,42 @@ shot() {
   echo "screenshot: $1"
 }
 
-# Taps the first on-screen element whose text matches $1.
-tap_text() {
-  adb shell uiautomator dump /sdcard/ui.xml > /dev/null
-  adb pull /sdcard/ui.xml "$OUT/ui.xml" > /dev/null
-  local bounds
-  bounds=$(python3 - "$1" "$OUT/ui.xml" <<'PY'
+# Prints the centre of the first on-screen element whose text matches $1,
+# waiting up to 20 s for it to appear (a cold start after `pm clear` can take
+# a while to draw). Fails the run if it never shows up.
+find_text() {
+  local bounds="" attempt
+  for attempt in $(seq 1 20); do
+    rm -f "$OUT/ui.xml"
+    adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1 || true
+    adb pull /sdcard/ui.xml "$OUT/ui.xml" > /dev/null 2>&1 || true
+    bounds=$(python3 - "$1" "$OUT/ui.xml" <<'PY'
 import re, sys, xml.etree.ElementTree as ET
 target, path = sys.argv[1], sys.argv[2]
-for node in ET.parse(path).iter("node"):
+try:
+    nodes = ET.parse(path).iter("node")
+except (ET.ParseError, FileNotFoundError):
+    nodes = []
+for node in nodes:
     if node.get("text") == target:
         x1, y1, x2, y2 = map(int, re.findall(r"\d+", node.get("bounds")))
         print((x1 + x2) // 2, (y1 + y2) // 2)
         break
 PY
 )
+    [ -n "$bounds" ] && break
+    sleep 1
+  done
   if [ -z "$bounds" ]; then
-    echo "::error::Could not find '$1' on screen"
+    echo "::error::Could not find '$1' on screen" >&2
     exit 1
   fi
+  echo "$bounds"
+}
+
+tap_text() {
+  local bounds
+  bounds=$(find_text "$1")
   adb shell input tap $bounds
 }
 
@@ -45,6 +62,7 @@ run_flow() {
   adb shell pm clear "$PKG" > /dev/null
   adb shell cmd uimode night "$mode"
   adb shell am start -W -n "$PKG/com.wheredidiputit.MainActivity" > /dev/null
+  find_text "Get started" > /dev/null
   shot "01-onboarding-$mode"
   tap_text "Get started"
   shot "02-sign-in-$mode"
@@ -63,7 +81,6 @@ run_flow yes
 adb shell pm clear "$PKG" > /dev/null
 adb shell cmd uimode night no
 adb shell am start -W -n "$PKG/com.wheredidiputit.MainActivity" > /dev/null
-sleep 2
 tap_text "Türkçe"
 shot "05-onboarding-tr"
 tap_text "Başla"
