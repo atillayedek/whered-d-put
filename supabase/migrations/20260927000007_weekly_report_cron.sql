@@ -3,7 +3,7 @@
 -- (`weekly_report_cron_secret`, created once with
 --  select vault.create_secret(encode(extensions.gen_random_bytes(32), 'hex'), 'weekly_report_cron_secret');).
 create extension if not exists pg_cron;
-create extension if not exists pg_net;
+create extension if not exists pg_net with schema extensions;
 
 select cron.schedule(
     'weekly-admin-report',
