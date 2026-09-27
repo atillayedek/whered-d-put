@@ -8,6 +8,7 @@ import com.wheredidiputit.domain.model.PremiumState
 import com.wheredidiputit.domain.model.PurchaseOutcome
 import com.wheredidiputit.domain.repository.ItemRepository
 import com.wheredidiputit.domain.repository.PremiumRepository
+import com.wheredidiputit.domain.repository.RemoteContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -23,8 +24,9 @@ data class PremiumUiState(
     val itemCount: Int = 0,
     /** Google Play's purchase sheet is open. */
     val isPurchasing: Boolean = false,
+    val itemLimit: Int = FreePlan.DEFAULT_ITEM_LIMIT,
 ) {
-    val limitReached: Boolean get() = !premium.isPremium && itemCount >= FreePlan.ITEM_LIMIT
+    val limitReached: Boolean get() = !premium.isPremium && itemCount >= itemLimit
     val canPurchase: Boolean get() = premium.storeAvailable && premium.offer != null && !isPurchasing
 }
 
@@ -32,6 +34,7 @@ data class PremiumUiState(
 class PremiumViewModel @Inject constructor(
     private val premiumRepository: PremiumRepository,
     itemRepository: ItemRepository,
+    remoteContent: RemoteContentRepository,
 ) : ViewModel() {
 
     private val purchasing = MutableStateFlow(false)
@@ -40,8 +43,9 @@ class PremiumViewModel @Inject constructor(
         premiumRepository.state,
         itemRepository.observeActiveCount(),
         purchasing,
-    ) { premium, count, isPurchasing ->
-        PremiumUiState(premium = premium, itemCount = count, isPurchasing = isPurchasing)
+        remoteContent.settings,
+    ) { premium, count, isPurchasing, settings ->
+        PremiumUiState(premium = premium, itemCount = count, isPurchasing = isPurchasing, itemLimit = settings.freeItemLimit)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PremiumUiState())
 
     /** Results of the purchase sheet; the screen reacts to each one. */

@@ -219,13 +219,14 @@
     <string name="plan_notice_title">%2$d ücretsiz kaydın %1$d tanesi kullanıldı</string>
     <string name="plan_notice_almost">Ücretsiz plana bir kayıt daha sığar. Premium ile sınır kalkar.</string>
     <string name="plan_notice_full">Yeni kayıt eklemek için bir kaydı sil ya da Premium\'a geç.</string>
+    <string name="announcement_dismiss">Duyuruyu kapat</string>
     <string name="plan_notice_action">Premium\'a bak</string>
     <string name="settings_plan">Plan</string>
     <string name="settings_plan_free">Ücretsiz plan</string>
     <string name="settings_plan_free_subtitle">%2$d kaydın %1$d tanesi kullanıldı · Premium\'a bak</string>
     <string name="settings_plan_premium">Premium</string>
     <string name="settings_plan_premium_subtitle">Sınırsız kayıt, reklam yok</string>
-    <string name="error_item_limit">Ücretsiz planda en fazla 5 kayıt var. Yenisini eklemek için birini sil ya da Premium\'a geç.</string>
+    <string name="error_item_limit">Ücretsiz plan doldu. Yenisini eklemek için bir kaydı sil ya da Premium\'a geç.</string>
 
     <!-- Gizlilik -->
     <string name="privacy_intro">Kayıtların sana özel. Uygulamanın neyi sakladığı ve kimin görebildiği burada.</string>

@@ -153,6 +153,23 @@ td.empty { color: var(--muted); text-align: center; padding: 28px; white-space: 
 
 #mobile-sign-out { display: none; }
 
+/* Settings & helpers */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.push-right { margin-left: auto; }
+.stack { display: grid; gap: 12px; align-content: start; }
+.stack > p { margin: 0; }
+.settings-grid { align-items: start; }
+.spaced { margin-top: 12px; }
+label.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+label.check input { width: auto; margin-top: 3px; }
+.qr { width: 180px; height: 180px; background: #FFFFFF; border-radius: 12px; padding: 8px; border: 1px solid var(--line); }
+code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; overflow-wrap: anywhere; }
+.current-announcement { background: var(--raised); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 6px; }
+.current-announcement p { margin: 0; }
+.row-actions { display: flex; gap: 6px; justify-content: flex-end; }
+.btn.danger { color: var(--danger); border-color: var(--line); background: var(--surface); }
+.btn.primary.danger { background: var(--danger); color: var(--surface); }
+
 /* Phone: sidebar becomes a bottom tab bar */
 @media (max-width: 860px) {
   .grid-2 { grid-template-columns: 1fr; }
@@ -176,3 +193,4 @@ td.empty { color: var(--muted); text-align: center; padding: 28px; white-space: 
   #mobile-sign-out { display: inline-flex; align-items: center; }
   #updated-at { display: none; }
 }
+label .muted { font-weight: 400; }

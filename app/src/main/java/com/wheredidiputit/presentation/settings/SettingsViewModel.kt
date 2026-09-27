@@ -11,6 +11,8 @@ import com.wheredidiputit.domain.repository.AccountRepository
 import com.wheredidiputit.domain.repository.AuthRepository
 import com.wheredidiputit.domain.repository.ItemRepository
 import com.wheredidiputit.domain.repository.PremiumRepository
+import com.wheredidiputit.domain.repository.RemoteContentRepository
+import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -39,6 +41,7 @@ data class SettingsUiState(
     val isPremium: Boolean = false,
     /** Memories that count towards the free plan's limit. */
     val itemCount: Int = 0,
+    val itemLimit: Int = FreePlan.DEFAULT_ITEM_LIMIT,
 ) {
     val versionLabel: String = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 }
@@ -50,6 +53,7 @@ class SettingsViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val itemRepository: ItemRepository,
     premiumRepository: PremiumRepository,
+    remoteContent: RemoteContentRepository,
 ) : ViewModel() {
 
     private val local = MutableStateFlow(SettingsUiState())
@@ -58,10 +62,11 @@ class SettingsViewModel @Inject constructor(
         local,
         authRepository.authState,
         settingsRepository.themeMode,
-        premiumRepository.state,
+        combine(premiumRepository.state, remoteContent.settings) { premium, settings -> premium to settings },
         itemRepository.observeActiveCount(),
-    ) { state, auth, theme, premium, count ->
+    ) { state, auth, theme, (premium, settings), count ->
         state.copy(
+            itemLimit = settings.freeItemLimit,
             email = (auth as? AuthState.SignedIn)?.email.orEmpty(),
             themeMode = theme,
             isPremium = premium.isPremium,

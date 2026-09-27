@@ -46,7 +46,6 @@ import com.wheredidiputit.core.designsystem.component.QuietButton
 import com.wheredidiputit.core.designsystem.component.WdipiTopBar
 import com.wheredidiputit.core.designsystem.theme.WdipiShapes
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
-import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.PremiumOffer
 import com.wheredidiputit.domain.model.PurchaseOutcome
 import com.wheredidiputit.presentation.common.AppSnackbarHost
@@ -127,7 +126,7 @@ fun PremiumScreen(
             Text(
                 stringResource(
                     if (state.limitReached) R.string.premium_limit_message else R.string.premium_intro,
-                    FreePlan.ITEM_LIMIT,
+                    state.itemLimit,
                 ),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -145,7 +144,7 @@ fun PremiumScreen(
                     Benefit(stringResource(R.string.premium_benefit_unlimited))
                     Benefit(stringResource(R.string.premium_benefit_no_ads))
                     Text(
-                        stringResource(R.string.premium_usage, state.itemCount.coerceAtMost(FreePlan.ITEM_LIMIT), FreePlan.ITEM_LIMIT),
+                        stringResource(R.string.premium_usage, state.itemCount.coerceAtMost(state.itemLimit), state.itemLimit),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

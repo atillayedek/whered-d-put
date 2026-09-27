@@ -44,4 +44,12 @@ class AdFrequencyPolicyTest {
         assertTrue(AdFrequencyPolicy.canShow(history, at(2026, 9, 11, 8), installedAt, zone))
         assertEquals(1, AdFrequencyPolicy.recordShown(history, at(2026, 9, 11, 8), zone).shownToday)
     }
+
+    @Test
+    fun `daily cap from the admin panel is respected`() {
+        val history = AdFrequencyPolicy.recordShown(AdHistory(), at(2026, 9, 10, 8), zone)
+        assertFalse(AdFrequencyPolicy.canShow(history, at(2026, 9, 10, 20), installedAt, zone, maxPerDay = 1))
+        assertTrue(AdFrequencyPolicy.canShow(history, at(2026, 9, 10, 20), installedAt, zone, maxPerDay = 2))
+        assertFalse(AdFrequencyPolicy.canShow(AdHistory(), at(2026, 9, 10, 20), installedAt, zone, maxPerDay = 0))
+    }
 }

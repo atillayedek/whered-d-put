@@ -43,6 +43,7 @@ import com.wheredidiputit.core.designsystem.component.EmptyState
 import com.wheredidiputit.core.designsystem.component.MemoryCard
 import com.wheredidiputit.core.designsystem.theme.WdipiShapes
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
+import com.wheredidiputit.presentation.common.AnnouncementBanner
 import com.wheredidiputit.presentation.common.AppSnackbarHost
 import com.wheredidiputit.presentation.common.PlanNotice
 import com.wheredidiputit.presentation.common.SectionLabel
@@ -116,10 +117,20 @@ fun HomeScreen(
                         SyncProblemBanner(onRetry = viewModel::retrySync, modifier = Modifier.animateItem())
                     }
                 }
+                state.announcement?.let { announcement ->
+                    item(key = "announcement-${announcement.id}") {
+                        AnnouncementBanner(
+                            announcement = announcement,
+                            onDismiss = { viewModel.dismissAnnouncement(announcement.id) },
+                            modifier = Modifier.animateItem(),
+                        )
+                    }
+                }
                 if (state.showPlanNotice) {
                     item(key = "plan-notice") {
                         PlanNotice(
                             itemCount = state.itemCount,
+                            itemLimit = state.itemLimit,
                             onOpenPremium = onOpenPremium,
                             modifier = Modifier.animateItem(),
                         )

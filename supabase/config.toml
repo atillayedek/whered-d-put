@@ -20,3 +20,14 @@ verify_jwt = true
 [functions.admin-mail]
 # Callers must be signed in; the function then checks public.admins.
 verify_jwt = true
+
+[functions.admin-actions]
+verify_jwt = true
+
+[functions.verify-purchase]
+verify_jwt = true
+
+[functions.weekly-report]
+# Called by pg_cron with a Vault-held shared secret, or by an admin; the
+# function checks both itself.
+verify_jwt = false

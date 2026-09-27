@@ -1,8 +1,12 @@
 package com.wheredidiputit.domain.model
 
-/** What the free plan allows. Deleting a memory frees its place. */
+/**
+ * What the free plan allows. Deleting a memory frees its place. The live
+ * limit comes from [AppSettings] (set in the admin panel); this is the
+ * fallback until the app has read it once.
+ */
 object FreePlan {
-    const val ITEM_LIMIT = 5
+    const val DEFAULT_ITEM_LIMIT = 5
 }
 
 /**

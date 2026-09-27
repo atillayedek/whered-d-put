@@ -34,6 +34,7 @@ import com.wheredidiputit.domain.repository.PremiumRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.exceptions.RestException
+import io.github.jan.supabase.functions.functions
 import io.github.jan.supabase.postgrest.from
 import java.time.Instant
 import java.util.Collections
@@ -52,6 +53,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 
 /**
  * Premium through Google Play Billing. Google Play is the source of truth:
@@ -90,6 +93,7 @@ class BillingManager @Inject constructor(
     @Volatile private var offerToken: String? = null
     @Volatile private var recurringPrice: ProductDetails.PricingPhase? = null
     private val reportedOrders: MutableSet<String> = Collections.synchronizedSet(mutableSetOf())
+    private val verifiedTokens: MutableSet<String> = Collections.synchronizedSet(mutableSetOf())
 
     init {
         scope.launch {
@@ -242,6 +246,27 @@ class BillingManager @Inject constructor(
         _state.update { it.copy(isPremium = isPremium, isPending = pending && !isPremium) }
 
         reportOrders(active)
+        requestVerification(active)
+    }
+
+    /**
+     * Asks the backend to check each subscription with Google Play (once per
+     * app run). Google's answer is what the server trusts, for example for the
+     * free-plan limit; the app itself keeps using Google Play directly.
+     */
+    private suspend fun requestVerification(purchases: List<Purchase>) {
+        val client = supabase.client ?: return
+        if (client.auth.currentSessionOrNull() == null) return
+        for (purchase in purchases) {
+            val token = purchase.purchaseToken
+            if (!verifiedTokens.add(token)) continue
+            safeCall {
+                client.functions.invoke(
+                    function = VERIFY_FUNCTION,
+                    body = buildJsonObject { put("purchase_token", token) },
+                )
+            }.onFailure { verifiedTokens.remove(token) }
+        }
     }
 
     /** Best effort; an order that couldn't be reported is tried again on the next refresh. */
@@ -272,5 +297,6 @@ class BillingManager @Inject constructor(
 
     private companion object {
         const val TABLE_PURCHASES = "purchases"
+        const val VERIFY_FUNCTION = "verify-purchase"
     }
 }

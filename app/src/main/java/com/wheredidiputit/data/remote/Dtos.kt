@@ -2,6 +2,7 @@ package com.wheredidiputit.data.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class ItemDto(
@@ -36,4 +37,18 @@ data class PurchaseDto(
     @SerialName("currency") val currency: String,
     @SerialName("purchased_at") val purchasedAt: String,
     @SerialName("auto_renewing") val autoRenewing: Boolean,
+)
+
+/** A row of `app_config`: the value is a JSON number or boolean. */
+@Serializable
+data class ConfigRowDto(
+    @SerialName("key") val key: String,
+    @SerialName("value") val value: JsonElement,
+)
+
+@Serializable
+data class AnnouncementDto(
+    @SerialName("id") val id: String,
+    @SerialName("message_tr") val messageTr: String,
+    @SerialName("message_en") val messageEn: String? = null,
 )

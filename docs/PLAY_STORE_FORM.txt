@@ -502,6 +502,8 @@ near the edges (keep important content in the center safe area).
 [ ] Ads: "Contains ads" = Yes
 [ ] Premium aboneliği (wdipi_premium / monthly, 34,99 TRY) oluşturuldu ve aktif
 [ ] License testing ile test satın alması yapıldı: 6. kayıt açılıyor, reklam yok
+[ ] (Önerilen) Servis hesabı eklendi (README → Google Play verification);
+    admin panelinde satın alma "Google doğrulamalı" görünüyor
 [ ] Content rating tamamlandı, target audience 18+
 [ ] Store listing TR + EN dolduruldu, ekran görüntüleri gerçek arayüzü gösteriyor
 [ ] Kapalı test: 12 kişi, 14 gün tamamlandı

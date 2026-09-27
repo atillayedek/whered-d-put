@@ -13,22 +13,30 @@ data class AdHistory(
 
 /**
  * Keeps ads rare so they never get in the way:
- * - at most [MAX_PER_DAY] full-screen ads per local calendar day,
+ * - at most `maxPerDay` full-screen ads per local calendar day (set in the
+ *   admin panel, [DEFAULT_MAX_PER_DAY] until the app has read it),
  * - at least [MIN_GAP_MILLIS] between two ads,
  * - none during the first [GRACE_PERIOD_MILLIS] after install.
  */
 object AdFrequencyPolicy {
-    const val MAX_PER_DAY = 3
+    const val DEFAULT_MAX_PER_DAY = 3
     const val MIN_GAP_MILLIS = 2L * 60 * 60 * 1000
     const val GRACE_PERIOD_MILLIS = 24L * 60 * 60 * 1000
 
-    fun canShow(history: AdHistory, now: Long, installedAt: Long, zone: ZoneId): Boolean {
+    fun canShow(
+        history: AdHistory,
+        now: Long,
+        installedAt: Long,
+        zone: ZoneId,
+        maxPerDay: Int = DEFAULT_MAX_PER_DAY,
+    ): Boolean {
+        if (maxPerDay <= 0) return false
         if (now - installedAt < GRACE_PERIOD_MILLIS) return false
         val last = history.lastShownAt
         if (last != null && now - last < MIN_GAP_MILLIS) return false
         val today = dayOf(now, zone)
         val shownToday = if (history.day == today) history.shownToday else 0
-        return shownToday < MAX_PER_DAY
+        return shownToday < maxPerDay
     }
 
     fun recordShown(history: AdHistory, now: Long, zone: ZoneId): AdHistory {

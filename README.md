@@ -187,6 +187,34 @@ insert into public.admins (user_id) select id from auth.users where email = '<ad
   Vault (`resend_api_key`) or the `RESEND_API_KEY` function secret.
 - Purchase figures come from orders the app reports (`public.purchases`);
   Play Console → Earnings is the authoritative source.
+- **Users:** delete an account (everything it owns) or resend the
+  confirmation email (Edge Function `admin-actions`); CSV export of users and
+  purchases.
+- **Settings:** free-plan limit and daily ad cap (`public.app_config`, read by
+  the app on start), in-app announcement banner (`public.app_announcements`),
+  two-step verification (TOTP) for the admin account — once enabled,
+  `is_admin()` requires an `aal2` session everywhere — and "send weekly
+  summary now".
+- **Weekly summary:** `pg_cron` job `weekly-admin-report` calls the
+  `weekly-report` Edge Function every Monday 06:00 UTC with a shared secret
+  held in Vault (`weekly_report_cron_secret`).
+
+#### Google Play verification (server side)
+
+The app sends every active purchase token to the `verify-purchase` Edge
+Function, which checks it with the Google Play Developer API and stores the
+result in `public.subscriptions`. It stays idle until a service account exists:
+
+1. Google Cloud console → create a service account (no roles needed) and a
+   JSON key for it.
+2. Play Console → Users and permissions → invite the service account's email
+   with *View financial data* and *Manage orders and subscriptions*.
+3. Supabase → Edge Functions → Secrets → add `GOOGLE_PLAY_SERVICE_ACCOUNT`
+   with the whole JSON key file as the value.
+4. After a test purchase shows up as "Google doğrulamalı" in the panel, turn on
+   *Limiti sunucuda da uygula* in Settings: the database then refuses new
+   memories beyond the free limit unless the account has a verified, unexpired
+   subscription (trigger `items_enforce_free_limit`).
 
 ## Release & Google Play
 

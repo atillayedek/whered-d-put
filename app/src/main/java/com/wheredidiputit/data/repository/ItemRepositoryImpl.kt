@@ -8,7 +8,6 @@ import com.wheredidiputit.data.local.ItemEntity
 import com.wheredidiputit.data.local.WdipiDatabase
 import com.wheredidiputit.domain.model.AppError
 import com.wheredidiputit.domain.model.AppResult
-import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.Item
 import com.wheredidiputit.domain.model.ItemDraft
 import com.wheredidiputit.domain.model.ItemLimits
@@ -18,6 +17,7 @@ import com.wheredidiputit.domain.repository.AuthRepository
 import com.wheredidiputit.domain.repository.CategoryRepository
 import com.wheredidiputit.domain.repository.ItemRepository
 import com.wheredidiputit.domain.repository.PremiumRepository
+import com.wheredidiputit.domain.repository.RemoteContentRepository
 import com.wheredidiputit.domain.repository.SyncController
 import com.wheredidiputit.domain.util.SearchText
 import java.util.Locale
@@ -45,6 +45,7 @@ class ItemRepositoryImpl @Inject constructor(
     private val imageStore: ImageStore,
     private val syncController: SyncController,
     private val premiumRepository: PremiumRepository,
+    private val remoteContent: RemoteContentRepository,
 ) : ItemRepository {
 
     private fun items(query: (userId: String) -> Flow<List<ItemEntity>>): Flow<List<Item>> =
@@ -93,7 +94,7 @@ class ItemRepositoryImpl @Inject constructor(
 
     override suspend fun create(draft: ItemDraft): AppResult<String> = write {
         val userId = authRepository.currentUserId ?: return@write AppResult.Failure(AppError.SESSION_EXPIRED)
-        if (!premiumRepository.state.value.isPremium && itemDao.countActive(userId) >= FreePlan.ITEM_LIMIT) {
+        if (!premiumRepository.state.value.isPremium && itemDao.countActive(userId) >= remoteContent.settings.value.freeItemLimit) {
             return@write AppResult.Failure(AppError.ITEM_LIMIT_REACHED)
         }
         val clean = draft.sanitized() ?: return@write AppResult.Failure(AppError.UNKNOWN)

@@ -10,6 +10,8 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.wheredidiputit.domain.ads.AdHistory
+import com.wheredidiputit.domain.model.Announcement
+import com.wheredidiputit.domain.model.AppSettings
 import com.wheredidiputit.domain.model.ThemeMode
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -74,7 +76,10 @@ class UserPreferences @Inject constructor(
         store.edit { prefs ->
             // Ad frequency is per device, so signing out can't be used to see more ads.
             // Premium belongs to the Google Play account on this device, not to the app account.
-            val keep = setOf(ONBOARDING_DONE.name, THEME.name, AD_LAST_SHOWN.name, AD_DAY.name, AD_COUNT.name, PREMIUM_CACHED.name)
+            val keep = setOf(
+                ONBOARDING_DONE.name, THEME.name, AD_LAST_SHOWN.name, AD_DAY.name, AD_COUNT.name, PREMIUM_CACHED.name,
+                SETTINGS_FREE_LIMIT.name, SETTINGS_ADS_PER_DAY.name,
+            )
             prefs.asMap().keys.filter { it.name !in keep }.forEach { prefs -= it }
         }
     }
@@ -103,6 +108,48 @@ class UserPreferences @Inject constructor(
         store.edit { it[PREMIUM_CACHED] = premium }
     }
 
+    /** Admin-set values from the last successful read, so they apply offline too. */
+    val appSettings: Flow<AppSettings> = store.data.map { prefs ->
+        val defaults = AppSettings()
+        AppSettings(
+            freeItemLimit = prefs[SETTINGS_FREE_LIMIT] ?: defaults.freeItemLimit,
+            adsPerDay = prefs[SETTINGS_ADS_PER_DAY] ?: defaults.adsPerDay,
+        )
+    }
+
+    suspend fun setAppSettings(settings: AppSettings) {
+        store.edit {
+            it[SETTINGS_FREE_LIMIT] = settings.freeItemLimit
+            it[SETTINGS_ADS_PER_DAY] = settings.adsPerDay
+        }
+    }
+
+    val announcement: Flow<Announcement?> = store.data.map { prefs ->
+        val id = prefs[ANNOUNCEMENT_ID]
+        val tr = prefs[ANNOUNCEMENT_TR]
+        if (id.isNullOrEmpty() || tr.isNullOrEmpty()) null else Announcement(id, tr, prefs[ANNOUNCEMENT_EN])
+    }
+
+    suspend fun setAnnouncement(announcement: Announcement?) {
+        store.edit { prefs ->
+            if (announcement == null) {
+                prefs -= ANNOUNCEMENT_ID
+                prefs -= ANNOUNCEMENT_TR
+                prefs -= ANNOUNCEMENT_EN
+            } else {
+                prefs[ANNOUNCEMENT_ID] = announcement.id
+                prefs[ANNOUNCEMENT_TR] = announcement.messageTr
+                if (announcement.messageEn != null) prefs[ANNOUNCEMENT_EN] = announcement.messageEn else prefs -= ANNOUNCEMENT_EN
+            }
+        }
+    }
+
+    val dismissedAnnouncementId: Flow<String?> = store.data.map { it[ANNOUNCEMENT_DISMISSED] }
+
+    suspend fun setDismissedAnnouncement(id: String) {
+        store.edit { it[ANNOUNCEMENT_DISMISSED] = id }
+    }
+
     private fun pullKey(userId: String) = stringPreferencesKey("last_pulled_at_$userId")
 
     private companion object {
@@ -115,5 +162,11 @@ class UserPreferences @Inject constructor(
         val AD_DAY = stringPreferencesKey("ad_day")
         val AD_COUNT = intPreferencesKey("ad_shown_today")
         val PREMIUM_CACHED = booleanPreferencesKey("premium_cached")
+        val SETTINGS_FREE_LIMIT = intPreferencesKey("settings_free_item_limit")
+        val SETTINGS_ADS_PER_DAY = intPreferencesKey("settings_ads_per_day")
+        val ANNOUNCEMENT_ID = stringPreferencesKey("announcement_id")
+        val ANNOUNCEMENT_TR = stringPreferencesKey("announcement_tr")
+        val ANNOUNCEMENT_EN = stringPreferencesKey("announcement_en")
+        val ANNOUNCEMENT_DISMISSED = stringPreferencesKey("announcement_dismissed")
     }
 }

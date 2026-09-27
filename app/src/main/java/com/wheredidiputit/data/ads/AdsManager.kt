@@ -20,6 +20,7 @@ import com.wheredidiputit.core.di.ApplicationScope
 import com.wheredidiputit.data.preferences.UserPreferences
 import com.wheredidiputit.domain.ads.AdFrequencyPolicy
 import com.wheredidiputit.domain.repository.PremiumRepository
+import com.wheredidiputit.domain.repository.RemoteContentRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.ZoneId
 import java.util.concurrent.atomic.AtomicBoolean
@@ -49,6 +50,7 @@ class AdsManager @Inject constructor(
     private val preferences: UserPreferences,
     @ApplicationScope private val scope: CoroutineScope,
     private val premiumRepository: PremiumRepository,
+    private val remoteContent: RemoteContentRepository,
 ) {
     private val isPremium: Boolean get() = premiumRepository.state.value.isPremium
 
@@ -107,6 +109,7 @@ class AdsManager @Inject constructor(
                 now = System.currentTimeMillis(),
                 installedAt = installedAt(),
                 zone = ZoneId.systemDefault(),
+                maxPerDay = remoteContent.settings.value.adsPerDay,
             )
             if (!allowed || isPremium) return@launch
             // Let the "Saved" confirmation land before the ad appears.
@@ -157,7 +160,7 @@ class AdsManager @Inject constructor(
     }
 
     private fun preload() {
-        if (!enabled || isPremium || isLoading || freshInterstitial() != null || !consentInformation.canRequestAds()) return
+        if (!enabled || isPremium || remoteContent.settings.value.adsPerDay <= 0 || isLoading || freshInterstitial() != null || !consentInformation.canRequestAds()) return
         isLoading = true
         InterstitialAd.load(
             context,

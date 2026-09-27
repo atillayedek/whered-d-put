@@ -219,13 +219,14 @@
     <string name="plan_notice_title">%1$d of %2$d free memories used</string>
     <string name="plan_notice_almost">One more fits in the free plan. Premium removes the limit.</string>
     <string name="plan_notice_full">To add a new one, delete a memory or go Premium.</string>
+    <string name="announcement_dismiss">Dismiss announcement</string>
     <string name="plan_notice_action">See Premium</string>
     <string name="settings_plan">Plan</string>
     <string name="settings_plan_free">Free plan</string>
     <string name="settings_plan_free_subtitle">%1$d of %2$d memories used · See Premium</string>
     <string name="settings_plan_premium">Premium</string>
     <string name="settings_plan_premium_subtitle">Unlimited memories, no ads</string>
-    <string name="error_item_limit">The free plan holds up to 5 memories. Delete one or go Premium to add more.</string>
+    <string name="error_item_limit">The free plan is full. Delete a memory or go Premium to add more.</string>
 
     <!-- Privacy -->
     <string name="privacy_intro">Your memories are personal. Here is exactly what the app keeps and who can see it.</string>

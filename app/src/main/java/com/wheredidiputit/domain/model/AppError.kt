@@ -19,7 +19,7 @@ enum class AppError {
     PHOTO_TOO_LARGE,
     NOT_FOUND,
     STORAGE,
-    /** The free plan already holds [FreePlan.ITEM_LIMIT] memories. */
+    /** The free plan already holds as many memories as it allows. */
     ITEM_LIMIT_REACHED,
     UNKNOWN,
 }

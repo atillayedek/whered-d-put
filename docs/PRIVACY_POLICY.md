@@ -45,7 +45,7 @@ above solely to operate the service.
 
 ## Premium
 
-Premium (unlimited memories, no ads) is a subscription sold and billed by Google Play. Google handles the payment under its own privacy policy; we never receive card or payment details. When you subscribe or renew, the app records the Google Play order number, price and date with your account so we can count subscribers and revenue. If you delete your account, these records are kept without any link to you, for accounting. Premium members are not shown ads.
+Premium (unlimited memories, no ads) is a subscription sold and billed by Google Play. Google handles the payment under its own privacy policy; we never receive card or payment details. When you subscribe or renew, the app records the Google Play order number, price and date with your account so we can count subscribers and revenue. If you delete your account, these records are kept without any link to you, for accounting. We also ask Google Play whether the subscription is valid and until when, and keep that answer with the account. Premium members are not shown ads.
 
 ## Security
 

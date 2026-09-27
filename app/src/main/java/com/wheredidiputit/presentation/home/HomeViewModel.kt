@@ -6,10 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wheredidiputit.domain.model.Announcement
 import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.Item
 import com.wheredidiputit.domain.repository.ItemRepository
 import com.wheredidiputit.domain.repository.PremiumRepository
+import com.wheredidiputit.domain.repository.RemoteContentRepository
 import com.wheredidiputit.domain.repository.SyncController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -34,14 +36,17 @@ data class HomeUiState(
     /** Memories that count towards the free plan's limit. */
     val itemCount: Int = 0,
     val isPremium: Boolean = false,
+    /** Free-plan limit currently set by the admin. */
+    val itemLimit: Int = FreePlan.DEFAULT_ITEM_LIMIT,
+    val announcement: Announcement? = null,
 ) {
     val isSearching: Boolean get() = activeQuery.isNotEmpty()
 
     /** A new memory needs Premium or a deleted one first. */
-    val limitReached: Boolean get() = !isPremium && itemCount >= FreePlan.ITEM_LIMIT
+    val limitReached: Boolean get() = !isPremium && itemCount >= itemLimit
 
     /** Tell free users where they stand once they're close to the limit. */
-    val showPlanNotice: Boolean get() = !isPremium && !isSearching && itemCount >= FreePlan.ITEM_LIMIT - 1
+    val showPlanNotice: Boolean get() = !isPremium && !isSearching && itemCount >= itemLimit - 1
     val isEmptyLibrary: Boolean get() = !isLoading && !isSearching && items.isEmpty()
 }
 
@@ -51,6 +56,7 @@ class HomeViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     private val syncController: SyncController,
     premiumRepository: PremiumRepository,
+    private val remoteContent: RemoteContentRepository,
 ) : ViewModel() {
 
     /** Held as Compose state so typing never lags or jumps the cursor. */
@@ -64,15 +70,19 @@ class HomeViewModel @Inject constructor(
             .flatMapLatest { q -> itemRepository.search(q).map { q to it } },
         itemRepository.observeFailedSyncCount(),
         itemRepository.observeActiveCount(),
-        premiumRepository.state,
-    ) { (activeQuery, items), failed, count, premium ->
+        combine(premiumRepository.state, remoteContent.settings, remoteContent.announcement) { premium, settings, announcement ->
+            Triple(premium.isPremium, settings.freeItemLimit, announcement)
+        },
+    ) { (activeQuery, items), failed, count, (isPremium, limit, announcement) ->
         HomeUiState(
             isLoading = false,
             activeQuery = activeQuery,
             items = items,
             failedSyncCount = failed,
             itemCount = count,
-            isPremium = premium.isPremium,
+            isPremium = isPremium,
+            itemLimit = limit,
+            announcement = announcement,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
@@ -89,6 +99,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun retrySync() = syncController.requestSync()
+
+    fun dismissAnnouncement(id: String) {
+        viewModelScope.launch { remoteContent.dismissAnnouncement(id) }
+    }
 
     private companion object {
         const val SEARCH_DEBOUNCE_MS = 250L

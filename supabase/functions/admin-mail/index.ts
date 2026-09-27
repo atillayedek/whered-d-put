@@ -85,8 +85,9 @@ Deno.serve(async (req: Request) => {
   if (!token) return json(401, { error: "unauthorized" });
 
   const url = Deno.env.get("SUPABASE_URL");
+  const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  if (!url || !serviceKey) return json(500, { error: "server_misconfigured" });
+  if (!url || !anonKey || !serviceKey) return json(500, { error: "server_misconfigured" });
 
   const admin = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -96,8 +97,14 @@ Deno.serve(async (req: Request) => {
   if (userError || !userData?.user) return json(401, { error: "unauthorized" });
   const user = userData.user;
 
-  const { data: adminRow } = await admin.from("admins").select("user_id").eq("user_id", user.id).maybeSingle();
-  if (!adminRow) return json(403, { error: "forbidden" });
+  // Same rule as the panel: listed in public.admins, and two-step verified
+  // when the admin has it set up.
+  const asCaller = createClient(url, anonKey, {
+    global: { headers: { Authorization: authHeader } },
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data: isAdmin } = await asCaller.rpc("is_admin");
+  if (isAdmin !== true) return json(403, { error: "forbidden" });
 
   let input: { action?: string; subject?: string; body?: string; audience?: string };
   try {

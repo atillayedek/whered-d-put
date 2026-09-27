@@ -51,7 +51,6 @@ import com.wheredidiputit.core.designsystem.component.ConfirmDialog
 import com.wheredidiputit.core.designsystem.theme.WdipiShapes
 import com.wheredidiputit.core.designsystem.theme.WdipiSpacing
 import com.wheredidiputit.domain.model.AppError
-import com.wheredidiputit.domain.model.FreePlan
 import com.wheredidiputit.domain.model.ThemeMode
 import com.wheredidiputit.presentation.common.AppSnackbarHost
 import com.wheredidiputit.presentation.common.LanguageSelector
@@ -120,8 +119,8 @@ fun SettingsScreen(
                     } else {
                         stringResource(
                             R.string.settings_plan_free_subtitle,
-                            state.itemCount.coerceAtMost(FreePlan.ITEM_LIMIT),
-                            FreePlan.ITEM_LIMIT,
+                            state.itemCount.coerceAtMost(state.itemLimit),
+                            state.itemLimit,
                         )
                     },
                     onClick = onOpenPremium,
